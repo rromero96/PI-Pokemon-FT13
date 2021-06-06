@@ -10,7 +10,6 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
 router.use(express.json());
 
 router.get('/pokemons', function (req, res){
