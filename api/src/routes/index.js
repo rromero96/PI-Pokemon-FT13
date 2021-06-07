@@ -1,6 +1,6 @@
 const { Router } = require('express');
 var express = require('express');
-var { Pokemon, Tipos} = require('../models/Pokemon.js');
+var { Pokemon, Tipo} = require('../models/Pokemon.js');
 const axios =require('axios').default;
 // Importar todos los routers;
 // Ejemplo: const authRouter = require('./auth.js');
