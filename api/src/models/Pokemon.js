@@ -34,20 +34,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     }
   });
-
-  sequelize.define('tipo', {
-    id:{
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
-      primaryKey: true,
-    },
-    name:{
-      type: DataTypes.STRING,
-      allowNull: false
-    }
-
-
-  })
 };
 
 
