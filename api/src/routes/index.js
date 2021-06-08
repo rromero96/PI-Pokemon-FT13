@@ -13,7 +13,7 @@ const router = Router();
 router.use(express.json());
 
 router.get('/pokemons', function (req, res){
-
+    
 });
 
 router.get('/pokemons/:idPokemon', function(req, res){
