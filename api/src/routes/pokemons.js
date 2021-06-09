@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {getApiPokemon, getIdPokemon, addPokemon} = require('../handlers/pokemon.js');
+const {getApiPokemon, getIdPokemon, addPokemon, getNamePokemon} = require('../handlers/pokemon.js');
 
 
 /* var { Pokemon } = require('../db.js');
@@ -9,6 +9,7 @@ const router = Router();
 
 router.get('/pokemons', getApiPokemon);
 router.get('/pokemons/:idPokemon', getIdPokemon);
+router.get('/pokemons', getNamePokemon);
 router.post('/pokemons', addPokemon);
 
 
