@@ -1,4 +1,5 @@
 const { Router } = require('express');
+const {getAddTypes} = require ('../handlers/types.js')
 
 /* var { Tipo } = require('../db.js');
 const axios =require('axios').default; */
@@ -6,10 +7,7 @@ const axios =require('axios').default; */
 const router = Router();
 
 
-router.get('/types', function(req, res){
-    return res.send('hola como andas');
-
-});
+router.get('/types', getAddTypes);
 
 
 
