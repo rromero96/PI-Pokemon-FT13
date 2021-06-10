@@ -5,32 +5,29 @@ const axios = require('axios');
 
 async function getApiPokemon (req, res) {
     let array = [];
+    let type;
     try {
         const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
         const poke2= pokemon.data.results.splice(0, 12);
-         poke2.forEach(async element => {
-            const subRequest = await axios.get(`${element.url}`);
-            if(subRequest.data.types[1]) {
-                var obj = {
-                    name: subRequest.data.name,
-                    image: subRequest.data.sprites.other.dream_world.front_default,
-                    types: subRequest.data.types[0].type.name + ", " + subRequest.data.types[1].type.name
-    
-                }
+        for(let i in poke2) {
+            let subRequest = await axios.get(`${poke2[i].url}`)
+            if(subRequest.data.types.length === 1) {
+                type = subRequest.data.types[0].type.name;
             } else {
-                var obj = {
-                    name: subRequest.data.name,
-                    image: subRequest.data.sprites.other.dream_world.front_default,
-                    types: subRequest.data.types[0].type.name 
-                }
+                type = subRequest.data.types[0].type.name + ", " + subRequest.data.types[1].type.name
             }
-            console.log(obj);
+            var obj = {
+                name: subRequest.data.name,
+                image: subRequest.data.sprites.other.dream_world.front_default,
+                types: type
+            }
             array.push(obj);
-        }); 
+            console.log(obj); 
+        }
     } catch(error) {
         return res.send('ERROR');
     }    
-    return res.json(array);
+    return res.send(array);
 }
 
 async function getIdPokemon (req, res) { // hacer params 
