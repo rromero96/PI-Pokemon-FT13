@@ -91,7 +91,8 @@ async function getIdPokemon (req, res) {
         const pokemonDb = await Pokemon.findOne({
             where:{
                 id: req.params.idPokemon
-            }
+            },
+            include: Tipo
         })
         return res.send(pokemonDb);
     }
@@ -117,7 +118,9 @@ async function addPokemon (req, res, next) {
         const addType = await createdPokemon.addTipo(req.body.type1, {through:'pokemon_tipo'})
         const addType2= await createdPokemon.addTipo(req.body.type2, {through:'pokemon_tipo'})
         const result = await Pokemon.findOne({
-            where: {name: req.body.name},
+            where: {
+                name: req.body.name
+            },
             include: Tipo
         });
         return res.send(result);
