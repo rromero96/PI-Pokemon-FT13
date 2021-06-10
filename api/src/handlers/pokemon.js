@@ -26,49 +26,74 @@ async function getApiPokemon (req, res) {
         }
     } catch(error) {
         return res.send('ERROR');
-    }    
+    }
     return res.send(array);
 }
 
-async function getIdPokemon (req, res) { // hacer params 
+async function getIdPokemon (req, res) {
+    let type;
     try {
-        const pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
-        res.json(pokemon);  // falta agregar las cosas que pide traer 
-    } catch (error) {
-        
-    }
-
-
-/*     const pais = async (req, res) => {
-        let {idPais} = req.params;
-        let {data} = await axios(`https://restcountries.eu/rest/v2/alpha/${idPais}`);
-        const con = await Country.findByPk(idPais, {include: Turism});
-
-        if(!con){
-        try {
-            let {data} = await axios('https://restcountries.eu/rest/v2/all')
-            await data.forEach(c => Country.create({
-               id: c.alpha3Code,
-               name: c.name,
-               continent: c.region,
-               img: c.flag,
-               capital: c.capital
-           }))
-           return res.redirect(`/countries/${idPais}`)
-        } catch {
-            res.json({message: 'toto ha fallado!'})
+        let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
+        if(pokemon.data.types.length === 1) {
+            type = pokemon.data.types[0].type.name;
+        } else {
+            type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
         }
+        console.log(type);
+        var obj = {
+            name: pokemon.data.name,
+            id: pokemon.data.id,
+            image: pokemon.data.sprites.other.dream_world.front_default,
+            types: type,
+            height: pokemon.data.height,
+            weight: pokemon.data.weight,
+            hp: pokemon.data.stats[0].base_stat,
+            attack: pokemon.data.stats[1].base_stat,
+            defense: pokemon.data.stats[1].base_stat,
+            speed: pokemon.data.stats[5].base_stat
+        } 
+    } catch (error) {
+        const pokemonDb = await Pokemon.findOne({
+            where:{
+                id: req.params.idPokemon
+            }
+        })
+        return res.send(pokemonDb);
     }
-     
-    con.subReg = data.subregion;
-        con.area = data.area;
-        con.pob =  data.population;
-        await con.save();
-        res.status(200).json(con); */
-
+    return res.send(obj);
 }
 
-async function getNamePokemon (req, res, next) { //y query
+async function getNamePokemon (req, res, next) {
+    let type;
+    try {
+        let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.query.name}`);
+        if(pokemon.data.types.length === 1) {
+            type = pokemon.data.types[0].type.name;
+        } else {
+            type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
+        }
+        console.log(type);
+        var obj = {
+            name: pokemon.data.name,
+            id: pokemon.data.id,
+            image: pokemon.data.sprites.other.dream_world.front_default,
+            types: type,
+            height: pokemon.data.height,
+            weight: pokemon.data.weight,
+            hp: pokemon.data.stats[0].base_stat,
+            attack: pokemon.data.stats[1].base_stat,
+            defense: pokemon.data.stats[1].base_stat,
+            speed: pokemon.data.stats[5].base_stat
+        } 
+    } catch (error) {
+        const pokemonDb = await Pokemon.findOne({
+            where:{
+                id: req.query.name
+            }
+        })
+        return res.send(pokemonDb);
+    }
+    return res.send(obj);
 
 }
 
