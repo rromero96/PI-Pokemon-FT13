@@ -9,14 +9,7 @@ const router = Router();
 
 router.get('/pokemons', getApiPokemon);
 router.get('/pokemons/:idPokemon', getIdPokemon);
-router.get('/pokemons', getNamePokemon);
 router.post('/pokemons', addPokemon);
-
-
-
-/* router.get('/pokemons', function(req, res){  //este es con req.query
-
-}); */
 
 
 

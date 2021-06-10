@@ -6,28 +6,62 @@ const axios = require('axios');
 async function getApiPokemon (req, res) {
     let array = [];
     let type;
-    try {
-        const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
-        const poke2= pokemon.data.results.splice(0, 12);
-        for(let i in poke2) {
-            let subRequest = await axios.get(`${poke2[i].url}`)
-            if(subRequest.data.types.length === 1) {
-                type = subRequest.data.types[0].type.name;
+    if(req.query.name) {
+        try {
+            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.query.name}`);
+            if(pokemon.data.types.length === 1) {
+                type = pokemon.data.types[0].type.name;
             } else {
-                type = subRequest.data.types[0].type.name + ", " + subRequest.data.types[1].type.name
+                type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
             }
+            console.log(type);
             var obj = {
-                name: subRequest.data.name,
-                image: subRequest.data.sprites.other.dream_world.front_default,
-                types: type
-            }
-            array.push(obj);
-            console.log(obj); 
+                name: pokemon.data.name,
+                id: pokemon.data.id,
+                image: pokemon.data.sprites.other.dream_world.front_default,
+                types: type,
+                height: pokemon.data.height,
+                weight: pokemon.data.weight,
+                hp: pokemon.data.stats[0].base_stat,
+                attack: pokemon.data.stats[1].base_stat,
+                defense: pokemon.data.stats[2].base_stat,
+                speed: pokemon.data.stats[5].base_stat
+            } 
+        } catch (error) {
+            const pokemonDb = await Pokemon.findOne({
+                where:{
+                    id: req.query.name
+                }
+            })
+            return res.send(pokemonDb);
         }
-    } catch(error) {
-        return res.send('ERROR');
+        return res.send(obj);
+
+    } else {
+        try {
+            const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
+            const poke2= pokemon.data.results.splice(0, 12);
+            for(let i in poke2) {
+                let subRequest = await axios.get(`${poke2[i].url}`)
+                if(subRequest.data.types.length === 1) {
+                    type = subRequest.data.types[0].type.name;
+                } else {
+                    type = subRequest.data.types[0].type.name + ", " + subRequest.data.types[1].type.name
+                }
+                var obj = {
+                    name: subRequest.data.name,
+                    image: subRequest.data.sprites.other.dream_world.front_default,
+                    types: type
+                }
+                array.push(obj);
+                console.log(obj); 
+            }
+        } catch(error) {
+            return res.send('ERROR');
+        }
+        return res.send(array);
+
     }
-    return res.send(array);
 }
 
 async function getIdPokemon (req, res) {
@@ -63,40 +97,6 @@ async function getIdPokemon (req, res) {
     return res.send(obj);
 }
 
-async function getNamePokemon (req, res, next) {
-    let type;
-    try {
-        let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.query.name}`);
-        if(pokemon.data.types.length === 1) {
-            type = pokemon.data.types[0].type.name;
-        } else {
-            type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
-        }
-        console.log(type);
-        var obj = {
-            name: pokemon.data.name,
-            id: pokemon.data.id,
-            image: pokemon.data.sprites.other.dream_world.front_default,
-            types: type,
-            height: pokemon.data.height,
-            weight: pokemon.data.weight,
-            hp: pokemon.data.stats[0].base_stat,
-            attack: pokemon.data.stats[1].base_stat,
-            defense: pokemon.data.stats[2].base_stat,
-            speed: pokemon.data.stats[5].base_stat
-        } 
-    } catch (error) {
-        const pokemonDb = await Pokemon.findOne({
-            where:{
-                id: req.query.name
-            }
-        })
-        return res.send(pokemonDb);
-    }
-    return res.send(obj);
-
-}
-
 
 
 async function addPokemon (req, res, next) {
@@ -117,10 +117,12 @@ async function addPokemon (req, res, next) {
 }
 
 
-
 module.exports = {
     getApiPokemon,
     getIdPokemon,
     addPokemon,
-    getNamePokemon
 }
+
+
+
+
