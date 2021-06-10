@@ -6,9 +6,10 @@ const axios = require('axios');
 async function getApiPokemon (req, res) {
     let array = [];
     let type;
+    var lower = req.query.name.toLowerCase();
     if(req.query.name) {
         try {
-            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.query.name}`);
+            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`);
             if(pokemon.data.types.length === 1) {
                 type = pokemon.data.types[0].type.name;
             } else {
@@ -30,7 +31,7 @@ async function getApiPokemon (req, res) {
         } catch (error) {
             const pokemonDb = await Pokemon.findOne({
                 where:{
-                    id: req.query.name
+                    name: lower
                 }
             })
             return res.send(pokemonDb);
@@ -101,6 +102,7 @@ async function getIdPokemon (req, res) {
 
 async function addPokemon (req, res, next) {
     const id = uuidv4();
+
     const pokemon = {...req.body, id};
     if(!req.body.name) {
         return res.send({      
