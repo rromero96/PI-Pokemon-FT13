@@ -1,4 +1,4 @@
-const {Pokemon} = require('../db.js');
+const {Pokemon, Tipo} = require('../db.js');
 const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 
@@ -9,7 +9,7 @@ async function getApiPokemon (req, res) {
     var lower = req.query.name.toLowerCase();
     if(req.query.name) {
         try {
-            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`);
+            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`); //${req.query.name}
             if(pokemon.data.types.length === 1) {
                 type = pokemon.data.types[0].type.name;
             } else {
@@ -31,7 +31,7 @@ async function getApiPokemon (req, res) {
         } catch (error) {
             const pokemonDb = await Pokemon.findOne({
                 where:{
-                    name: lower
+                    name: lower //req.query.name
                 }
             })
             return res.send(pokemonDb);
@@ -102,16 +102,25 @@ async function getIdPokemon (req, res) {
 
 async function addPokemon (req, res, next) {
     const id = uuidv4();
-
     const pokemon = {...req.body, id};
     if(!req.body.name) {
         return res.send({      
             message: 'tenes que llenar los datos',
         });
     }
-    try {
+    /* try {                                                                // asi lo tenia antes de vincularlo con tipos
         const createdPokemon = await Pokemon.create(pokemon);
         return res.send(createdPokemon);
+    } */
+    try {
+        const createdPokemon = await Pokemon.create(pokemon);
+        const addType = await createdPokemon.addTipo(req.body.type1, {through:'pokemon_tipo'})
+        const addType2= await createdPokemon.addTipo(req.body.type2, {through:'pokemon_tipo'})
+        const result = await Pokemon.findOne({
+            where: {name: req.body.name},
+            include: Tipo
+        });
+        return res.send(result);
     } catch(error) {
         next(error);
     }
@@ -119,12 +128,14 @@ async function addPokemon (req, res, next) {
 }
 
 
+
+
+
 module.exports = {
     getApiPokemon,
     getIdPokemon,
     addPokemon,
 }
-
 
 
 
