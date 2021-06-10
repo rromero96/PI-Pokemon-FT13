@@ -49,7 +49,7 @@ async function getIdPokemon (req, res) {
             weight: pokemon.data.weight,
             hp: pokemon.data.stats[0].base_stat,
             attack: pokemon.data.stats[1].base_stat,
-            defense: pokemon.data.stats[1].base_stat,
+            defense: pokemon.data.stats[2].base_stat,
             speed: pokemon.data.stats[5].base_stat
         } 
     } catch (error) {
@@ -82,7 +82,7 @@ async function getNamePokemon (req, res, next) {
             weight: pokemon.data.weight,
             hp: pokemon.data.stats[0].base_stat,
             attack: pokemon.data.stats[1].base_stat,
-            defense: pokemon.data.stats[1].base_stat,
+            defense: pokemon.data.stats[2].base_stat,
             speed: pokemon.data.stats[5].base_stat
         } 
     } catch (error) {
