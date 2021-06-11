@@ -35,7 +35,11 @@ async function getApiPokemon (req, res) {
                     name: lower
                 }
             })
+            if(!pokemonDb) {
+                return res.status(404).send({message: 'Bad Request'})
+            }
             return res.send(pokemonDb);
+            
         }
         return res.send(obj);
 
@@ -76,6 +80,19 @@ async function getIdPokemon (req, res) {
     try {
         /* let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPoke}`); */
         let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
+        if(!pokemon) {
+            const pokemonDb = await Pokemon.findOne({
+                where:{
+                    id: req.params.idPokemon
+                },
+                include: Tipo
+            })
+            if(!pokemonDb) {
+                return res.status(404).send({message: 'Bad Request'})
+            }
+            return res.send(pokemonDb);
+            
+        }
         if(pokemon.data.types.length === 1) {
             type = pokemon.data.types[0].type.name;
         } else {
@@ -97,13 +114,7 @@ async function getIdPokemon (req, res) {
             speed: pokemon.data.stats[5].base_stat
         } 
     } catch (error) {
-        const pokemonDb = await Pokemon.findOne({
-            where:{
-                id: req.params.idPokemon
-            },
-            include: Tipo
-        })
-        return res.send(pokemonDb);
+        return res.status(404).send({message: 'Bad Request'})
     }
     return res.send(obj);
 }

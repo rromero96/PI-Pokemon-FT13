@@ -25,6 +25,7 @@ server.use((req, res, next) => {
 
 server.use('/', routes);
 server.use(cors());
+server.use('*', (req,res)=>{return res.status(404).send({meesage:'Bad Request'})})
 
 // Error catching endware.
 server.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
