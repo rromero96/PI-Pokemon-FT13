@@ -82,6 +82,7 @@ async function getIdPokemon (req, res) {
             type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
         }
         console.log(type);
+
         var obj = {
             name: pokemon.data.name,
             id: pokemon.data.id,
