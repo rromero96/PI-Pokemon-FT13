@@ -67,7 +67,12 @@ async function getApiPokemon (req, res) {
 
 async function getIdPokemon (req, res) {
     let type;
+  /*   let {idPokemon} = req.params;
+    let idPoke = idPokemon + 1;
+    idPoke = idPoke - 1;
+    console.log(idPoke, typeof idPoke); */
     try {
+        /* let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPoke}`); */
         let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
         if(pokemon.data.types.length === 1) {
             type = pokemon.data.types[0].type.name;
