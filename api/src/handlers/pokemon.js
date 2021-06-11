@@ -20,6 +20,7 @@ async function getApiPokemon (req, res) {
                 name: pokemon.data.name,
                 id: pokemon.data.id,
                 image: pokemon.data.sprites.other.dream_world.front_default,
+                /* image: pokemon.data.sprites.versions.generation-v.black-white.animated.front_default, */
                 types: type,
                 height: pokemon.data.height,
                 weight: pokemon.data.weight,
@@ -52,6 +53,7 @@ async function getApiPokemon (req, res) {
                 var obj = {
                     name: subRequest.data.name,
                     image: subRequest.data.sprites.other.dream_world.front_default,
+                    /* image: subRequest.data.sprites.versions.generation-v.black-white.animated.front_default, */
                     types: type
                 }
                 array.push(obj);
@@ -84,6 +86,7 @@ async function getIdPokemon (req, res) {
             name: pokemon.data.name,
             id: pokemon.data.id,
             image: pokemon.data.sprites.other.dream_world.front_default,
+            /* image: pokemon.data.sprites.versions.generation-v.black-white.animated.front_default, */
             types: type,
             height: pokemon.data.height,
             weight: pokemon.data.weight,
