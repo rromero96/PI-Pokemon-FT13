@@ -13,7 +13,7 @@ async function getApiPokemon (req, res) {
             if(pokemon.data.types.length === 1) {
                 type = pokemon.data.types[0].type.name;
             } else {
-                type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
+                type = pokemon.data.types[0].type.name + " " + pokemon.data.types[1].type.name;
             }
             console.log(type);
             var obj = {
@@ -52,7 +52,7 @@ async function getApiPokemon (req, res) {
                 if(subRequest.data.types.length === 1) {
                     type = subRequest.data.types[0].type.name;
                 } else {
-                    type = subRequest.data.types[0].type.name + ", " + subRequest.data.types[1].type.name
+                    type = subRequest.data.types[0].type.name + " " + subRequest.data.types[1].type.name
                 }
                 var obj = {
                     name: subRequest.data.name,
@@ -96,7 +96,7 @@ async function getIdPokemon (req, res) {
         if(pokemon.data.types.length === 1) {
             type = pokemon.data.types[0].type.name;
         } else {
-            type = pokemon.data.types[0].type.name + ", " + pokemon.data.types[1].type.name;
+            type = pokemon.data.types[0].type.name + " " + pokemon.data.types[1].type.name;
         }
         console.log(type);
 
