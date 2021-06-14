@@ -1,0 +1,43 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.Landingpage{
+    background-image:
+    url("https://revistamorcego.com/wp-content/uploads/2019/03/img_7974.jpg");
+    background-size: cover;
+    background-position: center 70%;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+
+
+.btn {
+  position: fixed;
+  right: 480px;
+  margin-top: 30px;
+  background-color: crimson;
+  padding: 15px 30px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 20px;
+  background-size: 200% auto;
+  color: white;
+  border-radius: 10px;
+}
+
+.btn:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #ff8000;
+  text-decoration: none;
+  -webkit-transform:scale(1.25);
+  -moz-transform:scale(1.25);
+  -ms-transform:scale(1.25);
+  -o-transform:scale(1.25);
+  transform:scale(1.25);
+}
+
+
+
