@@ -2,6 +2,7 @@ import React from 'react'
 import './Navbar.css';
 import pokeLogo  from './pokeLogo.png'
 import SearchBar from '../SearchBar/SearchBar'
+import {Link} from 'react-router-dom'
 
 
 
@@ -13,8 +14,8 @@ export  function Navbar() {
             <div className="leftSide">
              <img className="logo" src={pokeLogo}  alt="pokelogo" />  
               <div className="links">
-            <a href="/home">Home</a>
-            <a href="/newPoke">NewPokemon</a>
+            <Link to="/home">Home</Link>
+            <Link to="/newPoke">NewPokemon</Link>
                 </div>  
             </div>
             
@@ -22,7 +23,7 @@ export  function Navbar() {
 
         </div>
        
-    );
-}
-
-
+       );
+    }
+    
+   

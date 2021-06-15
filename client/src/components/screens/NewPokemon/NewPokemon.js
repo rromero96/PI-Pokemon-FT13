@@ -27,7 +27,7 @@ export function NewPokemon() {
       }
       
     
-    
+     
         return (
           <form onSubmit={input.handleSubmit}>
             <div>
@@ -90,6 +90,5 @@ export function validate(input) {
     } else if (!/\S+@\S+\.\S+/.test(input.PokeName)) {
       errors.PokeName = 'PokeName must be a text string';
     }
-    
     return errors;
   };
