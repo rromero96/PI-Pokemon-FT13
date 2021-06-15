@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+.rightSide input {
+    width: 220px;
+    height: 30px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    padding-left: 15px;
+    color: black;
+    font-family: 'Press Start 2P', cursive;
+
+}
+
+.rightSide button {
+    height: 32px;
+    width: 70px;
+    font-size: 9px;
+    font-family: 'Press Start 2P', cursive;
+
+}
+
+button:hover {
+    cursor: pointer;
+}

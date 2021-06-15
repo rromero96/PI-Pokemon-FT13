@@ -1,10 +1,11 @@
 import React from 'react'
 import './Navbar.css';
 import pokeLogo  from './pokeLogo.png'
+import SearchBar from '../SearchBar/SearchBar'
 
 
 
-export function Navbar() {
+export  function Navbar() {
     
     return (
         
@@ -16,10 +17,9 @@ export function Navbar() {
             <a href="/newPoke">NewPokemon</a>
                 </div>  
             </div>
-            <div className="rightSide">
-                <input type="text" placeholder="Find a Pokemon" />
-                <button>Search</button>
-            </div>
+            
+            <SearchBar />
+
         </div>
        
     );
