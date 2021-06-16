@@ -1,4 +1,4 @@
-import './Home.css';
+import '../../component/Pokemon/Pokemon.css';
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getPokemons, getTypes} from '../../../Redux/Actions/index.js'
@@ -18,11 +18,12 @@ export function Home() {
     },[dispatch])
 
     return (
-        <div>
-          {pokemonList.map((pokemon)=> (
-            <Pokemon key={pokemon.id} pokemon={pokemon}></Pokemon>
+            <div className="row center">
+                {pokemonList.map((pokemon)=> (
+                <Pokemon key={pokemon.id} pokemon={pokemon}></Pokemon>
               ))}
-        </div>
+
+            </div>
     )
 }
 
