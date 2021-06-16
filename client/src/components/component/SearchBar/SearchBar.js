@@ -24,7 +24,7 @@ function SearchBar({searchPokemon}) {
                 <button>Search</button>
                 </div>
             </form>
-          {/*  */}
+          {}
 
         </div>
             )
