@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   CREATE_POKEMON,
   GET_TYPES,
@@ -5,6 +6,8 @@ import {
   GET_POKEMON_DETAIL,
   SEARCH_POKEMON
 } from "./actionTypes";
+
+
 
 
 export const getPokemons = () => async (dispatch) => {
@@ -34,7 +37,7 @@ export const getTypes = () => async (dispatch) => {
   }
 };
 
-export const searchPokemon = (name) => async (dispatch) => {
+ export const searchPokemon = (name) => async (dispatch) => {
   try {
     const res = await axios.get("http://localhost:3001/pokemons?name=" + name);
     dispatch({type: SEARCH_POKEMON , payload: res.data});
@@ -51,6 +54,8 @@ export const newPokemon = (pokemon) => async (dispatch) => {
     console.log(err);
   }
 };
+
+  
 
 
 /* export const newPokemon = (pokemon) => async (dispatch) => {  
