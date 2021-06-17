@@ -39,7 +39,7 @@ const rootReducer = (state = initialState, action) => {
         case CREATE_POKEMON:
             return {
                 ...state,
-                pokemonCreated: action.payload
+                pokemonCreated: state.pokemonCreated.concat(action.payload)
             }  
 
         default:
