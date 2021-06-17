@@ -1,28 +1,29 @@
 import React from 'react'
 import './NewPokemon.css'
+/* import { connect } from 'react-redux'; */
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { newPokemon } from '../../../Redux/Actions/index.js'
+import { newPokemon, getTypes } from '../../../Redux/Actions/index.js'
 
 export function NewPokemon() {
-  const dispatch = useDispatch();
-  const pokemonCreated = useSelector(state => state.pokemonCreated);
 
-  const create = () => {
-    dispatch (newPokemon(pokemonCreated));
-  }
-  /* useEffect(() =>{
-      dispatch (newPokemon(pokemonCreated));
-  },[dispatch]) */
+    const pokemonCreated = useSelector(state => state.pokemonCreated)
+    const pokemonTypes = useSelector(state => state.pokemonTypes)
+
+    const dispatch = useDispatch();
+
+    useEffect(() =>{
+      dispatch(getTypes());
+  },[dispatch])
 
     const [input, setInput] = React.useState({
-       PokeName: '',
-       Hp: '',
-       Strength: '',
-       Defense: '',
-       Speed: '',
-       Heigth: '',
-       Weigth: '',
+       name: '',
+       hp: '',
+       strength: '',
+       defense: '',
+       speed: '',
+       height: '', 
+       weight: '',
  
       });
      
@@ -38,41 +39,48 @@ export function NewPokemon() {
           [e.target.name]: e.target.value
         }));
       }
+
+      const handleSubmit = function(e) {
+        e.preventDefault();
+        newPokemon(input);
+        setInput('');
+        
+      }
       
     
       
       return (
-        <form onSubmit={input.handleSubmit}>
+        <form onSubmit={handleSubmit}>
             <div>
               <label>PokeName:</label>
-              <input className={errors.PokeName && 'danger'} type="text" name="PokeName" onChange={handleInputChange} value={input.PokeName} />
-              {errors.PokeName && (
-                <p className="danger">{errors.PokeName}</p>
+              <input className={errors.PokeName && 'danger'} type="text" name="name" onChange={handleInputChange} value={input.name} />
+              {errors.name && (
+                <p className="danger">{errors.name}</p>
                 )}
                
               <div>
               <label>Hp:</label>
-              <input className={errors.Hp && 'danger'} type="number" name="Hp" onChange={handleInputChange} value={input.Hp} />
+              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp} />
             
          <div>
               <label>Strength:</label>
-              <input className={errors.Strength && 'danger'} type="number" name="Strength" onChange={handleInputChange} value={input.Strength} />
+              <input className={errors.strength && 'danger'} type="number" name="strength" onChange={handleInputChange} value={input.strength} />
               
          <div>
               <label>Defense:</label>
-              <input className={errors.Defense && 'danger'} type="number" name="Defense" onChange={handleInputChange} value={input.Defense} />
+              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} value={input.defense} />
              
          <div>
               <label>Speed:</label>
-              <input className={errors.Speed && 'danger'} type="number" name="Speed" onChange={handleInputChange} value={input.Speed} />
+              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} />
               
          <div>
-              <label>Heigth:</label>
-              <input className={errors.Heigth && 'danger'} type="number" name="Heigth" onChange={handleInputChange} value={input.Heigth} />
+              <label>Height:</label>
+              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height} />
             
          <div>
-              <label>Weigth:</label>
-              <input className={errors.Weigth && 'danger'} type="number" name="Weigth" onChange={handleInputChange} value={input.Weigth} />
+              <label>Weight:</label>
+              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} />
             </div>
             </div>
             </div>
@@ -80,17 +88,31 @@ export function NewPokemon() {
             </div>
             </div>
             </div>
-            <input  type="submit"/>
+            {/* <button type="submit">CREATE</button> */}
+            <button onClick={()=>dispatch(newPokemon(input))}>CREATE</button>
           </form>
         )
 } 
 
-export function validate(input) {
+ export function validate(input) {
     let errors = {};
-    if (!input.PokeName) {
-      errors.PokeName = 'PokeName is required';
-    } else if (!/^[A-Za-z]+$/.test(input.PokeName)) {
-      errors.PokeName = 'PokeName must be a text string';
+    if (!input.name) {
+      errors.name = 'PokeName is required';
+    } else if (!/^[A-Za-z]+$/.test(input.name)) {
+      errors.name = 'PokeName must be a text string';
     }
     return errors;
-  };
+};
+
+/*function mapDispatchToProps(dispatch) {
+  return {
+    newPokemon: pokemon => dispatch(newPokemon(pokemon))
+  }
+} */
+
+/* function mapStateToProps(){} */
+
+
+/* export default connect(null, mapDispatchToProps)(NewPokemon); */
+
+export default NewPokemon;

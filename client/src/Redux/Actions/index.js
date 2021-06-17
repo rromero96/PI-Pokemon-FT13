@@ -60,9 +60,7 @@ export const newPokemon = (pokemon) => async (dispatch) => {
   } catch (err) {
     console.log(err);
   }
-};
-
-  
+}; 
 
 
 /* export const newPokemon = (pokemon) => async (dispatch) => {  
