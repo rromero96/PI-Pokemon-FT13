@@ -17,7 +17,7 @@ async function getApiPokemon (req, res) {
             }
             console.log(type);
             var obj = {
-                name: pokemon.data.name,
+                name: pokemon.data.name.charAt(0).toUpperCase() + pokemon.data.name.slice(1),
                 id: pokemon.data.id,
                 image: pokemon.data.sprites.other.dream_world.front_default,
                 /* image: pokemon.data.sprites.versions.generation-v.black-white.animated.front_default, */
@@ -56,7 +56,7 @@ async function getApiPokemon (req, res) {
                     type = subRequest.data.types[0].type.name + " " + subRequest.data.types[1].type.name
                 }
                 var obj = {
-                    name: subRequest.data.name,
+                    name: subRequest.data.name.charAt(0).toUpperCase() + subRequest.data.name.slice(1),
                     image: subRequest.data.sprites.other.dream_world.front_default,
                     /* image: subRequest.data.sprites.versions.generation-v.black-white.animated.front_default, */
                     id: subRequest.data.id, 
@@ -98,7 +98,7 @@ async function getIdPokemon (req, res) {
         console.log(type);
 
         var obj = {
-            name: pokemon.data.name,
+            name: pokemon.data.name.charAt(0).toUpperCase() + pokemon.data.name.slice(1),
             id: pokemon.data.id,
             image: pokemon.data.sprites.other.dream_world.front_default,
             /* image: pokemon.data.sprites.versions.generation-v.black-white.animated.front_default, */
