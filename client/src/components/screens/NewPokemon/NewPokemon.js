@@ -1,7 +1,20 @@
 import React from 'react'
 import './NewPokemon.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { newPokemon } from '../../../Redux/Actions/index.js'
 
 export function NewPokemon() {
+  const dispatch = useDispatch();
+  const pokemonCreated = useSelector(state => state.pokemonCreated);
+
+  const create = () => {
+    dispatch (newPokemon(pokemonCreated));
+  }
+  /* useEffect(() =>{
+      dispatch (newPokemon(pokemonCreated));
+  },[dispatch]) */
+
     const [input, setInput] = React.useState({
        PokeName: '',
        Hp: '',
@@ -67,7 +80,7 @@ export function NewPokemon() {
             </div>
             </div>
             </div>
-            <input type="submit"/>
+            <input  type="submit"/>
           </form>
         )
 } 
