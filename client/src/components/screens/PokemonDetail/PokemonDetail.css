@@ -1,0 +1,64 @@
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items:center;
+  } 
+
+.row.center {
+    justify-content: center;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+
+.row.center .card:hover {
+    color: #ff8000;
+
+}
+
+/* Image */
+img {
+    border-radius: 0.5rem;
+    margin: 1rem;
+    margin-left: 2px;
+}
+img.medium {
+    max-width: 18rem;    /* Image si quiero que hayan 3 filas de 4 poner 26 rem */
+    width: 90%;
+}
+
+/* Card */
+
+.card {
+    border: 0.1rem #000000 solid;
+    background-color: #f8f8f8;
+    border-radius: 1rem;
+    margin: 1.8rem;
+    margin-top: 4rem;
+    text-decoration: none;
+  }
+  
+  .card-body > * {
+    margin: 0.5rem;
+    color: #000000;
+    text-align: center;
+    
+  }
+
+
+/* Common */
+.card-body h1 {
+    font-size: 2rem;
+    padding: 0rem 0;
+    text-decoration: none;
+   
+
+  }
+
+.card-body h4 {
+    font-size: 1.4rem;
+    padding: 0rem 0;
+    text-decoration: none;
+  }

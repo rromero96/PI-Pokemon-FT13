@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 
 
+
 export function Home() {
     const dispatch = useDispatch();
     const pokemonList = useSelector(state => state.pokemonList)
@@ -20,11 +21,13 @@ export function Home() {
 
     return (
             <div className="row center">
-                {pokemonList.map((pokemon)=> (
-                <Link to={`/pokeDetail/${pokemon.id}`}>
+                {
+                Array.isArray(pokemonList) ? pokemonList.map(pokemon=> (
+                    <Link to={`/pokeDetail/${pokemon.id}`}>
                 <Pokemon key={pokemon.id} pokemon={pokemon}></Pokemon>
-                </Link>
-              ))}
+                    </Link>
+              )): <h1>Cargando ...</h1>
+              }
             </div>
     )
 }
