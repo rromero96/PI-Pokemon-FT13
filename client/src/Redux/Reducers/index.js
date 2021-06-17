@@ -11,6 +11,7 @@ const initialState = {
     pokemonTypes: [],
     pokemonDetail: {},
     pokemonCreated:[],
+    pokemonSearched: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -33,7 +34,7 @@ const rootReducer = (state = initialState, action) => {
         case SEARCH_POKEMON:
             return {
                 ...state,
-                pokemonDetail: action.payload
+                pokemonSearched: action.payload
             }
         case CREATE_POKEMON:
             return {

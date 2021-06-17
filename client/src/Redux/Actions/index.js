@@ -4,7 +4,7 @@ import {
   GET_TYPES,
   GET_POKEMONS,
   GET_POKEMON_DETAIL,
-  SEARCH_POKEMON
+  SEARCH_POKEMON,
 } from "./actionTypes";
 
 
@@ -24,9 +24,16 @@ export const getPokemonDetail = (id) => async (dispatch) => {
     const res = await axios.get("http://localhost:3001/pokemons/" + id);
     dispatch({type: GET_POKEMON_DETAIL , payload: res.data});
   } catch (err) {
-    console.log(err);
+    if(err.res !== 404) alert("There has been an ERROR")
+    dispatch({type: GET_POKEMON_DETAIL , payload: null})
   }
 };
+
+export const clearPokemonDetail = () => {
+  return {
+    type: GET_POKEMON_DETAIL , payload: undefined
+  }
+}
 
 export const getTypes = () => async (dispatch) => {
   try {

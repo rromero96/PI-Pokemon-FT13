@@ -5,7 +5,7 @@ import {searchPokemon} from '../../../Redux/Actions/index.js'
 import {Link} from 'react-router-dom';
 
 
-function SearchBar({searchPokemon, pokemonDetail}) {
+function SearchBar({searchPokemon, pokemonSearched}) {
 
     const[search, setSearch] = useState('');
 
@@ -27,7 +27,7 @@ const handleSubmit= (e) => {
             <form>
                 <div className="rightSide">
                     <input type="text" value={search} placeholder="Find a Pokemon" onChange={handleChange}/>
-                    <Link to={`/pokeDetail/${pokemonDetail.id}`}>
+                    <Link to={`/pokeDetail/${pokemonSearched.id}`}>
                     <button onClick={handleSubmit}>Search</button>
                     </Link>
                 </div>
@@ -41,7 +41,7 @@ const handleSubmit= (e) => {
 
 function mapStateToProps(state) {
     return {
-        pokemonDetail: state.pokemonDetail
+        pokemonSearched: state.pokemonSearched
     }
 }
 
