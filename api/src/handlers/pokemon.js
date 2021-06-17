@@ -46,7 +46,8 @@ async function getApiPokemon (req, res) {
     } else {
         try {
             const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
-            const poke2= pokemon.data.results.splice(0, 12);
+            const pokemon2 = await axios.get(pokemon.data.next);
+            const poke2= pokemon.data.results.concat(pokemon2.data.results);
             for(let i in poke2) {
                 let subRequest = await axios.get(`${poke2[i].url}`)
                 if(subRequest.data.types.length === 1) {
@@ -58,6 +59,7 @@ async function getApiPokemon (req, res) {
                     name: subRequest.data.name,
                     image: subRequest.data.sprites.other.dream_world.front_default,
                     /* image: subRequest.data.sprites.versions.generation-v.black-white.animated.front_default, */
+                    id: subRequest.data.id, 
                     types: type
                 }
                 array.push(obj);
@@ -73,12 +75,7 @@ async function getApiPokemon (req, res) {
 
 async function getIdPokemon (req, res) {
     let type;
-  /*   let {idPokemon} = req.params;
-    let idPoke = idPokemon + 1;
-    idPoke = idPoke - 1;
-    console.log(idPoke, typeof idPoke); */
     try {
-        /* let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${idPoke}`); */
         let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
         if(!pokemon) {
             const pokemonDb = await Pokemon.findOne({
@@ -159,6 +156,7 @@ module.exports = {
     getIdPokemon,
     addPokemon,
 }
+
 
 
 
