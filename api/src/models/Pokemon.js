@@ -15,7 +15,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    life:{
+    hp:{
       type: DataTypes.INTEGER
     },
     strength:{
