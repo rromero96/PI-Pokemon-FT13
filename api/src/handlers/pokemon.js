@@ -76,49 +76,51 @@ async function getApiPokemon (req, res) {
     }
 }
 
-async function getIdPokemon (req, res) {
+ 
+
+async function getIdPokemon (req, res){
     let type;
-    try {
-        let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
-        if(!pokemon) {
-            const pokemonDb = await Pokemon.findOne({
+    if(req.params.idPokemon.length > 30) {
+        try{
+            var pokemonDb = await Pokemon.findOne({
                 where:{
                     id: req.params.idPokemon
                 },
                 include: Tipo
             })
-            if(!pokemonDb) {
-                return res.status(404).send({message: 'Bad Request'})
+
+        }catch (error){
+            return res.status(404).send({message: 'Bad Request'})
+        }
+        return res.send(pokemonDb);
+    } else {
+        try{
+            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
+            if(pokemon.data.types.length === 1) {
+                type = pokemon.data.types[0].type.name;
+            } else {
+                type = pokemon.data.types[0].type.name + " " + pokemon.data.types[1].type.name;
             }
-            return res.send(pokemonDb);
-            
+            console.log(type);
+    
+            var obj = {
+                name: pokemon.data.name,
+                id: pokemon.data.id,
+                image: pokemon.data.sprites.other.dream_world.front_default,
+                types: type,
+                height: pokemon.data.height,
+                weight: pokemon.data.weight,
+                hp: pokemon.data.stats[0].base_stat,
+                attack: pokemon.data.stats[1].base_stat,
+                defense: pokemon.data.stats[2].base_stat,
+                speed: pokemon.data.stats[5].base_stat
+            } 
+        }catch (error) {
+            return res.status(404).send({message: 'Bad Request'})  
         }
-        if(pokemon.data.types.length === 1) {
-            type = pokemon.data.types[0].type.name;
-        } else {
-            type = pokemon.data.types[0].type.name + " " + pokemon.data.types[1].type.name;
-        }
-        console.log(type);
-
-        var obj = {
-            name: pokemon.data.name,
-            id: pokemon.data.id,
-            image: pokemon.data.sprites.other.dream_world.front_default,
-            /* image: pokemon.data.sprites.versions.generation-v.black-white.animated.front_default, */
-            types: type,
-            height: pokemon.data.height,
-            weight: pokemon.data.weight,
-            hp: pokemon.data.stats[0].base_stat,
-            attack: pokemon.data.stats[1].base_stat,
-            defense: pokemon.data.stats[2].base_stat,
-            speed: pokemon.data.stats[5].base_stat
-        } 
-    } catch (error) {
-        return res.status(404).send({message: 'Bad Request'})
+        return res.send(obj);
     }
-    return res.send(obj);
 }
-
 
 
 async function addPokemon (req, res, next) {
@@ -130,10 +132,6 @@ async function addPokemon (req, res, next) {
             message: 'tenes que llenar los datos',
         });
     }
-    /* try {                                                                // asi lo tenia antes de vincularlo con tipos
-        const createdPokemon = await Pokemon.create(pokemon);
-        return res.send(createdPokemon);
-    } */
     try {
         const createdPokemon = await Pokemon.create(pokemon);
         const addType = await createdPokemon.addTipo(req.body.type1, {through:'pokemon_tipo'})
