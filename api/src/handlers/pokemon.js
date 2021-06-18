@@ -4,6 +4,7 @@ const axios = require('axios');
 
 var array = [];
 
+
 async function getApiPokemon (req, res) {
     let type;
     if(req.query.name) {
