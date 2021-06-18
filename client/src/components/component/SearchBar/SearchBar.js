@@ -1,5 +1,4 @@
 import React,{useState} from 'react'
-import {connect} from 'react-redux'
 import './SearchBar.css'
 import {searchPokemon} from '../../../Redux/Actions/index.js'
 import {useSelector, useDispatch} from 'react-redux'
