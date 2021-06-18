@@ -7,7 +7,7 @@ import { newPokemon, getTypes } from '../../../Redux/Actions/index.js'
 
 export function NewPokemon() {
 
-    const pokemonCreated = useSelector(state => state.pokemonCreated)
+    /* const pokemonCreated = useSelector(state => state.pokemonCreated) */
     const pokemonTypes = useSelector(state => state.pokemonTypes)
 
     const dispatch = useDispatch();
@@ -19,11 +19,13 @@ export function NewPokemon() {
     const [input, setInput] = React.useState({
        name: '',
        hp: '',
-       strength: '',
+       attack: '',
        defense: '',
        speed: '',
        height: '', 
        weight: '',
+       type1: '',
+       type2: ''
  
       });
      
@@ -46,11 +48,13 @@ export function NewPokemon() {
         setInput({
           name: '',
           hp: '',
-          strength: '',
+          attack: '',
           defense: '',
           speed: '',
           height: '', 
           weight: '',
+          type1: '',
+          type2: ''
         });
         
       }
@@ -71,8 +75,8 @@ export function NewPokemon() {
               <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp} />
             
          <div>
-              <label>Strength:</label>
-              <input className={errors.strength && 'danger'} type="number" name="strength" onChange={handleInputChange} value={input.strength} />
+              <label>Attack:</label>
+              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} />
               
          <div>
               <label>Defense:</label>
@@ -89,14 +93,29 @@ export function NewPokemon() {
          <div>
               <label>Weight:</label>
               <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} />
+              <br/>
+              <span>Type-1</span>
+              <select className="tipe1" name="type1" value={input.id} onChange={handleInputChange}>
+                    <option value=''></option>
+                    {pokemonTypes && pokemonTypes.map(c => (
+                    <option value={c.id} name="c.name">{c.name}</option>
+                    ))}
+                </select>
+                <br/>
+              <span>Type-2</span>
+                <select className="type2" name="type2" value={input.id} onChange={handleInputChange}>
+                    <option value=''></option>
+                    {pokemonTypes && pokemonTypes.map(c => (
+                    <option value={c.id} name="c.name">{c.name}</option>
+                    ))}
+                </select>  
+            </div>
+            </div>  
             </div>
             </div>
             </div>
             </div>
             </div>
-            </div>
-            </div>
-            {/* <button type="submit">CREATE</button> */}
             <button onClick={()=>dispatch(newPokemon(input))}>CREATE</button>
           </form>
         )
