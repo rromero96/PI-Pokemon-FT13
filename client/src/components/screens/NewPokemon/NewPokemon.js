@@ -96,7 +96,7 @@ export function NewPokemon() {
               <br/>
               <span>Type-1</span>
               <select className="tipe1" name="type1" value={input.id} onChange={handleInputChange}>
-                    <option value=''></option>
+                    <option value='null'>null</option>
                     {pokemonTypes && pokemonTypes.map(c => (
                     <option value={c.id} name="c.name">{c.name}</option>
                     ))}
@@ -104,7 +104,7 @@ export function NewPokemon() {
                 <br/>
               <span>Type-2</span>
                 <select className="type2" name="type2" value={input.id} onChange={handleInputChange}>
-                    <option value=''></option>
+                    <option value='null'>null</option>
                     {pokemonTypes && pokemonTypes.map(c => (
                     <option value={c.id} name="c.name">{c.name}</option>
                     ))}
@@ -130,16 +130,5 @@ export function NewPokemon() {
     }
     return errors;
 };
-
-/*function mapDispatchToProps(dispatch) {
-  return {
-    newPokemon: pokemon => dispatch(newPokemon(pokemon))
-  }
-} */
-
-/* function mapStateToProps(){} */
-
-
-/* export default connect(null, mapDispatchToProps)(NewPokemon); */
 
 export default NewPokemon;

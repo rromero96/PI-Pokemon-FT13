@@ -63,16 +63,3 @@ export const newPokemon = (pokemon) => async (dispatch) => {
 }; 
 
 
-/* export const newPokemon = (pokemon) => async (dispatch) => {  
-    function onSuccess(success) {
-      dispatch({ type: CREATE_POKEMON, payload: success });
-      return success;
-    }
-    try {
-      const res = await axios.post("http://localhost:3001/pokemons", pokemon);
-      return onSuccess(success);
-    } catch (err) {
-      console.log(err);
-    }
-  
-} */
