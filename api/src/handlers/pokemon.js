@@ -89,11 +89,29 @@ async function getIdPokemon (req, res){
                 },
                 include: Tipo
             })
+            if(pokemonDb.tipos.length === 1) {
+                type = pokemonDb.tipos[0].name;
+            } else {
+                type = pokemonDb.tipos[0].name + " " + pokemonDb.tipos[1].name;
+            }
+            var finalPokemon ={
+                name : pokemonDb.name.charAt(0).toUpperCase() + pokemonDb.name.slice(1),
+                id: pokemonDb.id,
+                types: type,
+                height: pokemonDb.height,
+                weight: pokemonDb.weight,
+                hp: pokemonDb.hp,
+                attack: pokemonDb.attack,
+                defense: pokemonDb.defense,
+                speed: pokemonDb.speed
+
+            } 
 
         }catch (error){
+            console.log(finalPokemon);
             return res.status(404).send({message: 'Bad Request'})
         }
-        return res.send(pokemonDb);
+        return res.send(finalPokemon);
     } else {
         try{
             let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
@@ -169,7 +187,4 @@ module.exports = {
     getIdPokemon,
     addPokemon,
 }
-
-
-
 
