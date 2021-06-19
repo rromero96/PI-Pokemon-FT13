@@ -45,6 +45,7 @@ export function NewPokemon() {
       const handleSubmit = function(e) {
         e.preventDefault();
         newPokemon(input);
+        console.log(input)
         setInput({
           name: '',
           hp: '',

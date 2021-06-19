@@ -25,7 +25,8 @@ const rootReducer = (state = initialState, action) => {
         case GET_POKEMON_DETAIL:
             return {
                 ...state,
-                pokemonDetail: action.payload
+                pokemonDetail: action.payload,
+                /* pokemonDetailTypes: Object.assign({},state.pokemonList.filter(p => p.id === action.payload.id)).map(p => {return {poke:p.nombre}}) */
             }
         case GET_TYPES:
             return {

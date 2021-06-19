@@ -1,7 +1,7 @@
 import '../../component/Pokemon/Pokemon.css';
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {getPokemons, getTypes} from '../../../Redux/Actions/index.js'
+import {getPokemons} from '../../../Redux/Actions/index.js'
 import Pokemon from '../../component/Pokemon/Pokemon'
 import { Link } from 'react-router-dom';
 
@@ -13,14 +13,17 @@ export function Home() {
     const dispatch = useDispatch();
     const pokemonList = useSelector(state => state.pokemonList)
     const pokemonTypes = useSelector(state => state.pokemonTypes)
+   /*  const [numPag, setNumPag] = useState(1) */
     const [input, setInput] = useState({
         type1: '',
-  
+        order: '',
        });
-
-    useEffect(() =>{
-        dispatch(getPokemons());
-        dispatch(getTypes());
+    const[result, setResult] = useState()
+       
+       useEffect(() =>{
+           dispatch(getPokemons());
+           setResult(pokemonList);
+           
     },[dispatch])
 
     const handleInputChange = function(e) {
@@ -29,20 +32,27 @@ export function Home() {
           [e.target.name]: e.target.value
         });
       }
+      console.log(result);
+    /*   let ren
+      if (numPag*12 > pokemonList.length){
+          ren = pokemonList.slice(pokemonList.length-12, pokemonList.length)
+      } else {
+          ren = pokemonList.slice((numPag*12)-12, numPag*12)
+      }   */
 
     return (
             <div>
                 <span>Filter By</span>
-                <select className="type" name="type" value={input.id} onChange={handleInputChange}>
+                <select className="type" name="type" key={input.type1.id} value={input.id} onChange={handleInputChange}>
                     <option value='null'>null</option>
                     <option value='Api Poke'>Api Poke</option>
                     <option value='Created Poke'>Created Poke</option>
-                    {pokemonTypes && pokemonTypes.map(c => (
-                    <option value={c.id} name="c.name">{c.name}</option>
+                    {pokemonTypes && pokemonTypes.map((c, index) => (
+                    <option value={c.id} key={index} name="c.name">{c.name}</option>
                     ))}
                 </select>  
             <span>Order By</span>
-                <select className="type" name="type"  onChange={handleInputChange}>
+                <select className="type" name="type" key='order' onChange={handleInputChange}>
                     <option value='null'>null</option>
                     <option value='az' name='az'>A - Z</option>
                     <option value='za' name='za'>Z - A</option>
@@ -52,13 +62,18 @@ export function Home() {
                 </select>  
                 <div className="row center">
                 {
-                Array.isArray(pokemonList) ? pokemonList.map(pokemon=> (
+                Array.isArray(pokemonList) ? pokemonList.map((pokemon, index)=> (
                     <Link to={`/pokeDetail/${pokemon.id}`}>
-                <Pokemon key={pokemon.id} pokemon={pokemon}></Pokemon>
+                <Pokemon key={index} pokemon={pokemon}></Pokemon>
                     </Link>
               )): <h1>Cargando ...</h1>
               }
               </div>
+             {/*  <div className='bottons'>
+                <button className='ant' onClick={()=>{numPag-1 === 0 ? setNumPag(1) : setNumPag(numPag-1)}}>Anterior</button>
+                <button>{numPag}</button>
+                <button className='sig' onClick={()=>{(numPag+1)*10 > pokemonList.length ? setNumPag(numPag) : setNumPag(numPag+1)}}>Siguiente</button>
+            </div> */}
             </div>
             
     )

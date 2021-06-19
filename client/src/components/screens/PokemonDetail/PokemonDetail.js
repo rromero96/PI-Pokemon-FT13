@@ -9,7 +9,7 @@ export function PokemonDetail() {
     
     const dispatch = useDispatch();
     const pokemonDetail = useSelector(state => state.pokemonDetail);
-    /* const pokemonList = useSelector(state => state.pokemonList);  */
+    const pokemonDetailTypes = useSelector(state => state.pokemonDetailTypes); 
     const {id} = useParams();
 
     useEffect(() =>{
@@ -19,10 +19,11 @@ export function PokemonDetail() {
         }
     },[dispatch, id])
 
-    
-    /* var tipos = pokemonList.filter(p =>p.id === pokemonDetail.id) */
-    
-    if(pokemonDetail === null) {
+   
+     
+
+   
+     if(pokemonDetail === null) {
         return (
             <h1>Pokemon NOT FOUND!!</h1>
             )
@@ -30,26 +31,51 @@ export function PokemonDetail() {
             return (
                 <h1>Cargando...</h1>
                 )
-            } else {
+            } else { 
                 return  (<div className="row center">
-                    <div key={pokemonDetail.id} className="card">
-                        <img className="medium" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
-                            <div className="card-body">
-                                <h2>Name: {pokemonDetail.name}</h2>
-                                <h4>ID: {pokemonDetail.id}</h4>
-                                <h4>Heigth: {pokemonDetail.height}</h4>
-                                <h4>Weigth: {pokemonDetail.weight}</h4>
-                                <h4>HP: {pokemonDetail.hp}</h4>
-                                <h4>Attack: {pokemonDetail.attack}</h4>
-                                <h4>Defense: {pokemonDetail.defense}</h4>
-                                <h4>Speed: {pokemonDetail.speed}</h4>
-                                <h4>Types: {pokemonDetail.types /* ? pokemonDetail.types : tipos */}</h4>
-                            </div>
-                    </div>
-                </div>)
-        
+                <div key={pokemonDetail.id} className="card">
+                    <img className="medium" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
+                        <div className="card-body">
+                            <h2>Name: {pokemonDetail.name}</h2>
+                            <h4>ID: {pokemonDetail.id}</h4>
+                            <h4>Heigth: {pokemonDetail.height}</h4>
+                            <h4>Weigth: {pokemonDetail.weight}</h4>
+                            <h4>HP: {pokemonDetail.hp}</h4>
+                            <h4>Attack: {pokemonDetail.attack}</h4>
+                            <h4>Defense: {pokemonDetail.defense}</h4>
+                            <h4>Speed: {pokemonDetail.speed}</h4>
+                            <h4>Types: {pokemonDetail.types}</h4>
+                        </div>
+                </div>
+            </div>)
     }
     
 }
 
 
+
+
+
+
+/*return  (
+    <div>
+    {pokemonDetail.map((pokemonDetail) => (
+ <div className="row center">
+    <div key={pokemonDetail.id} className="card">
+        <img className="medium" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
+            <div className="card-body">
+                <h2>Name: {pokemonDetail.name}</h2>
+                 <h4>ID: {pokemonDetail.id}</h4>
+                <h4>Heigth: {pokemonDetail.height}</h4>
+                <h4>Weigth: {pokemonDetail.weight}</h4>
+                <h4>HP: {pokemonDetail.hp}</h4>
+                <h4>Attack: {pokemonDetail.attack}</h4>
+                <h4>Defense: {pokemonDetail.defense}</h4>
+                <h4>Speed: {pokemonDetail.speed}</h4> 
+             <h4>Types: {pokemonDetail[0].types}</h4> 
+            </div>
+    </div>
+</div>
+))}
+</div>
+*/

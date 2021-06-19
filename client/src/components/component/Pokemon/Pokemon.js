@@ -16,4 +16,3 @@ export default function Pokemon(props) {
             </div>
     )
 }
-

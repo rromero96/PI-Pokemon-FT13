@@ -27,7 +27,10 @@ export const getPokemonDetail = (id) => async (dispatch) => {
     if(err.res !== 404) alert("There has been an ERROR")
     dispatch({type: GET_POKEMON_DETAIL , payload: null})
   }
+  /* dispatch({type: GET_POKEMON_DETAIL , payload:id}) */
 };
+
+
 
 export const clearPokemonDetail = () => {
   return {

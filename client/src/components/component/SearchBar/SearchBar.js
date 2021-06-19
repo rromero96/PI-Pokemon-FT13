@@ -1,3 +1,4 @@
+
 import React,{useState} from 'react'
 import './SearchBar.css'
 import {searchPokemon} from '../../../Redux/Actions/index.js'
@@ -35,7 +36,4 @@ const handleSubmit= (e) => {
         </div>
             )
 }
-
-
-
 
