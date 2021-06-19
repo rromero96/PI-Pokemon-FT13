@@ -17,14 +17,16 @@ export function Home() {
         type1: '',
         order: '',
        });
-    const[result, setResult] = useState()
 
+    const [loading, setLoading] = useState(false); 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pokemonsPerPage, setPokemonsPerPage] = useState(12);
     
-       
-       useEffect(() =>{
-           dispatch(getPokemons());
-           setResult(pokemonList);
-           
+    useEffect(() =>{
+        setLoading(true);
+        dispatch(getPokemons());
+        setLoading(false);
+
     },[dispatch])
 
     const handleInputChange = function(e) {
@@ -32,9 +34,26 @@ export function Home() {
           ...input,
           [e.target.name]: e.target.value
         });
+
       }
-      console.log(result);
-    
+      console.log(pokemonList);
+      
+      const indexOfLastPost = currentPage * pokemonsPerPage;
+      const indexOfFirstPost = indexOfLastPost - pokemonsPerPage;
+      const currentPokemons = pokemonList.slice(indexOfFirstPost, indexOfLastPost);
+
+      const pageNumber = Math.ceil(pokemonList.length / pokemonsPerPage);
+
+      const nextPage = () => {
+          if(currentPage < pageNumber) setCurrentPage(currentPage + 1);
+          else setCurrentPage(1)
+      }
+
+      const prePage = () => {
+          if(currentPage !== 1)  setCurrentPage(currentPage - 1);
+          else setCurrentPage(pageNumber)
+      }
+
     return (
             <div>
                 <span>Filter By</span>
@@ -55,14 +74,18 @@ export function Home() {
                     <option value='attack-' name='null'>Attack -</option>
                     
                 </select>  
-                <div className="row center">
+                <div className="row center"> 
                 {
-                Array.isArray(pokemonList) ? pokemonList.map((pokemon, index)=> (
+                 currentPokemons.map((pokemon, index)=> (
                     <Link to={`/pokeDetail/${pokemon.id}`}>
-                <Pokemon key={index} pokemon={pokemon}></Pokemon>
+                <Pokemon key={index} pokemon={pokemon} loading={loading}></Pokemon>
                     </Link>
-              )): <h1>Cargando ...</h1>
+              ))
               }
+              </div>
+              <div>
+                  <button onClick={() => {prePage()}}>Previous</button>
+                  <button onClick={() => {nextPage()}}>Next</button>
               </div>
             </div>
             
@@ -71,3 +94,7 @@ export function Home() {
 
 
 export default Home
+
+
+
+

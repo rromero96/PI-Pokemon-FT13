@@ -25,11 +25,17 @@ export function PokemonDetail() {
    
      if(pokemonDetail === null) {
         return (
-            <h1>Pokemon NOT FOUND!!</h1>
+            <div>
+                <h1>Pokemon NOT FOUND!!</h1>
+                <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif'/>
+            </div>
             )
         }else if (pokemonDetail === undefined) {
             return (
-                <h1>Cargando...</h1>
+                <div>
+                     <h1>LOADING</h1>
+                    <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'/>
+                </div>
                 )
             } else { 
                 return  (<div className="row center">
@@ -55,27 +61,3 @@ export function PokemonDetail() {
 
 
 
-
-
-/*return  (
-    <div>
-    {pokemonDetail.map((pokemonDetail) => (
- <div className="row center">
-    <div key={pokemonDetail.id} className="card">
-        <img className="medium" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
-            <div className="card-body">
-                <h2>Name: {pokemonDetail.name}</h2>
-                 <h4>ID: {pokemonDetail.id}</h4>
-                <h4>Heigth: {pokemonDetail.height}</h4>
-                <h4>Weigth: {pokemonDetail.weight}</h4>
-                <h4>HP: {pokemonDetail.hp}</h4>
-                <h4>Attack: {pokemonDetail.attack}</h4>
-                <h4>Defense: {pokemonDetail.defense}</h4>
-                <h4>Speed: {pokemonDetail.speed}</h4> 
-             <h4>Types: {pokemonDetail[0].types}</h4> 
-            </div>
-    </div>
-</div>
-))}
-</div>
-*/
