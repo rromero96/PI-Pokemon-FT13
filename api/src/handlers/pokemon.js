@@ -10,7 +10,7 @@ async function getApiPokemon (req, res) {
     if(req.query.name) {
         var lower = req.query.name.toLowerCase();
         try {
-            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`); //${lower}
+            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`); 
             if(pokemon.data.types.length === 1) {
                 type = pokemon.data.types[0].type.name;
             } else {
@@ -21,7 +21,6 @@ async function getApiPokemon (req, res) {
                 name: pokemon.data.name.charAt(0).toUpperCase() + pokemon.data.name.slice(1),
                 id: pokemon.data.id,
                 image: pokemon.data.sprites.other.dream_world.front_default,
-                /* image: pokemon.data.sprites.versions.generation-v.black-white.animated.front_default, */
                 types: type,
                 height: pokemon.data.height,
                 weight: pokemon.data.weight,
@@ -60,7 +59,6 @@ async function getApiPokemon (req, res) {
                     var obj = {
                         name: subRequest.data.name.charAt(0).toUpperCase() + subRequest.data.name.slice(1),
                         image: subRequest.data.sprites.other.dream_world.front_default,
-                        /* image: subRequest.data.sprites.versions.generation-v.black-white.animated.front_default, */
                         id: subRequest.data.id, 
                         types: type
                     }
