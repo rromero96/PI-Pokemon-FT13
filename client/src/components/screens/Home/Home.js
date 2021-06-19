@@ -13,12 +13,13 @@ export function Home() {
     const dispatch = useDispatch();
     const pokemonList = useSelector(state => state.pokemonList)
     const pokemonTypes = useSelector(state => state.pokemonTypes)
-   /*  const [numPag, setNumPag] = useState(1) */
     const [input, setInput] = useState({
         type1: '',
         order: '',
        });
     const[result, setResult] = useState()
+
+    
        
        useEffect(() =>{
            dispatch(getPokemons());
@@ -33,13 +34,7 @@ export function Home() {
         });
       }
       console.log(result);
-    /*   let ren
-      if (numPag*12 > pokemonList.length){
-          ren = pokemonList.slice(pokemonList.length-12, pokemonList.length)
-      } else {
-          ren = pokemonList.slice((numPag*12)-12, numPag*12)
-      }   */
-
+    
     return (
             <div>
                 <span>Filter By</span>
@@ -69,11 +64,6 @@ export function Home() {
               )): <h1>Cargando ...</h1>
               }
               </div>
-             {/*  <div className='bottons'>
-                <button className='ant' onClick={()=>{numPag-1 === 0 ? setNumPag(1) : setNumPag(numPag-1)}}>Anterior</button>
-                <button>{numPag}</button>
-                <button className='sig' onClick={()=>{(numPag+1)*10 > pokemonList.length ? setNumPag(numPag) : setNumPag(numPag+1)}}>Siguiente</button>
-            </div> */}
             </div>
             
     )
