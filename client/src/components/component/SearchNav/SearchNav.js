@@ -1,5 +1,4 @@
 import React from 'react'
-import '../Navbar/Navbar.css'
 import pokeLogo  from '../Navbar/pokeLogo.png'
 import SearchBar from '../SearchBar/SearchBar'
 import {Link} from 'react-router-dom'

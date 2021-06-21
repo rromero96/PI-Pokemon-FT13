@@ -7,7 +7,9 @@ import { Link } from 'react-router-dom';
 export function Filter() {
     const dispatch = useDispatch(); // falta use effect con estado para filtrar los pokemone
 
+    const pokemonFiltered = useSelector(state => state.pokemonFiltered)
     const pokemonTypes = useSelector(state => state.pokemonTypes)
+    const pokemonList = useSelector(state => state.pokemonList);
 
     const [input, setInput] = useState({
         type1: '',

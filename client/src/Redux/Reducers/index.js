@@ -3,7 +3,9 @@ import {
   GET_TYPES,
   GET_POKEMONS,
   GET_POKEMON_DETAIL,
-  SEARCH_POKEMON
+  SEARCH_POKEMON,
+  FILTER_POKEMON,
+  ORDER_POKEMON
   } from "../Actions/actionTypes";
 
 const initialState = {
@@ -11,7 +13,8 @@ const initialState = {
     pokemonTypes: [],
     pokemonDetail: {},
     pokemonCreated:[],
-    pokemonSearched: []
+    pokemonSearched: [],
+    pokemonFiltered: []
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -44,7 +47,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemonCreated: state.pokemonCreated.concat(action.payload)
             }  
-
+    /*     case FILTER_POKEMON:
+            return {
+                ...state,
+                pokemonFiltered: pokemonList.filter(p.type ===  action.payload)
+            }    
+         */
         default:
             return state
     }
