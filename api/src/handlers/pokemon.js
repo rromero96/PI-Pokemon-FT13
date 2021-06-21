@@ -50,6 +50,7 @@ var array = [];
                 types: type,
                 height: pokemonDb.height,
                 weight: pokemonDb.weight,
+                image: "https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png",
                 hp: pokemonDb.hp,
                 attack: pokemonDb.attack,
                 defense: pokemonDb.defense,
@@ -96,7 +97,7 @@ var array = [];
 
 async function getIdPokemon (req, res){
     let type;
-    if(req.params.idPokemon.length > 5) {
+    if(req.params.idPokemon.length > 20) {
         try{
             var pokemonDb = await Pokemon.findOne({
                 where:{
@@ -119,7 +120,6 @@ async function getIdPokemon (req, res){
                 attack: pokemonDb.attack,
                 defense: pokemonDb.defense,
                 speed: pokemonDb.speed
-
             } 
 
         }catch (error){
