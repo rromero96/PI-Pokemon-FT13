@@ -18,8 +18,10 @@ export function SearchNav() {
             <Link to="/newPoke">NewPokemon</Link>
             <Link to="/home/filter">Filter</Link>
                 </div>  
-
+                <div className="barra">
                 <SearchBar />
+
+                </div>
             </div>
             
 
