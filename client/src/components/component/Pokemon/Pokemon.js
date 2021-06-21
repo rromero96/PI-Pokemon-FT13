@@ -4,7 +4,7 @@ import './Pokemon.css'
 export default function Pokemon(props) {
     const {pokemon, loading} = props;
     if(loading) {
-      return <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'/>
+      return <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
     }
     return (
             <div className="row center">

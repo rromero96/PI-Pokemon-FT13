@@ -31,13 +31,16 @@ img.medium {
 
 /* Card */
 
-.card {
+.bigcard {
     border: 0.1rem #000000 solid;
     background-color: #f8f8f8;
     border-radius: 1rem;
     margin: 1.8rem;
     margin-top: 4rem;
     text-decoration: none;
+    width: 20em;
+    height: 100%;
+    padding: 2em;
   }
   
   .card-body > * {

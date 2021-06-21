@@ -9,7 +9,6 @@ export function PokemonDetail() {
     
     const dispatch = useDispatch();
     const pokemonDetail = useSelector(state => state.pokemonDetail);
-    const pokemonDetailTypes = useSelector(state => state.pokemonDetailTypes); 
     const {id} = useParams();
 
     useEffect(() =>{
@@ -27,19 +26,19 @@ export function PokemonDetail() {
         return (
             <div>
                 <h1>Pokemon NOT FOUND!!</h1>
-                <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif'/>
+                <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif' alt='pokemon img'/>
             </div>
             )
         }else if (pokemonDetail === undefined) {
             return (
                 <div>
                      <h1>LOADING</h1>
-                    <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif'/>
+                    <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
                 </div>
                 )
             } else { 
                 return  (<div className="row center">
-                <div key={pokemonDetail.id} className="card">
+                <div key={pokemonDetail.id} className="bigcard">
                     <img className="medium" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
                         <div className="card-body">
                             <h2>Name: {pokemonDetail.name}</h2>

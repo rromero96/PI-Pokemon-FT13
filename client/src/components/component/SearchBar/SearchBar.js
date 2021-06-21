@@ -1,9 +1,7 @@
-
 import React,{useState} from 'react'
 import './SearchBar.css'
 import {searchPokemon} from '../../../Redux/Actions/index.js'
 import {useSelector, useDispatch} from 'react-redux'
-import { Link } from 'react-router-dom';
 
 
 export default function SearchBar () {
@@ -18,19 +16,46 @@ export default function SearchBar () {
     }
     
 
-    const handleSubmit= (e) => {
+const handleSubmit= (e) => {
     e.preventDefault();
     if(search !==  "") {
         dispatch(searchPokemon(search))
         setSearch('')
     }
 }
-    let url;
-    if(search === ""){
-        url='/home';
-    } else {
-        url= `/pokeDetail/${search}`;
+    console.log(pokemonSearched);
+
+
+    return (
+        <div>
+            <form>
+                <div className="rightSide">
+                    <input type="text" value={search} placeholder="Find a Pokemon" onChange={handleChange}/>
+                    <button onClick={handleSubmit}>Search</button>
+                </div>
+            </form>
+        </div>
+            )
+}
+
+
+
+/*
+const handleSubmit= (e) => {
+    e.preventDefault();
+    if(search !==  "") {
+        dispatch(searchPokemon(search))
+        setSearch('')
     }
+    
+    let url;
+       if(search === ""){
+           url='/home';
+       } else {
+           url= `/pokeDetail/${search}`
+            url= `/pokeDetail?name=${search}`
+            url= `/pokeDetail/${search}` 
+       }
 
     return (
         <div>
@@ -44,6 +69,4 @@ export default function SearchBar () {
             </form>
 
         </div>
-            )
-}
-
+            ) */

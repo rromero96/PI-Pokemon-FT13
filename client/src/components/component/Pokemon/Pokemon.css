@@ -10,12 +10,14 @@
     flex-wrap: wrap;
     justify-content: space-between;
     align-items:center;
+    
   } 
 
 .row.center {
     justify-content: center;
     color: #ffffff;
     padding: 1rem;
+    
 }
 
 
@@ -28,6 +30,9 @@
 img {
     border-radius: 0.5rem;
     margin: 1rem;
+    height:10em;
+    width:10em;
+    object-fit: contain;
 }
 img.medium {
     max-width: 18rem;    /* Image si quiero que hayan 3 filas de 4 poner 26 rem */
@@ -43,6 +48,9 @@ img.medium {
     margin: 1.8rem;
     margin-top: 4rem;
     text-decoration: none;
+    width: 14em;
+    height: 18em;
+    padding: 3em;
   }
   
   .card-body > * {

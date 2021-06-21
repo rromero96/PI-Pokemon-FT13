@@ -20,7 +20,8 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 /* pokemonList: state.pokemonCreated.concat(action.payload) */ // asi lo tenia antes para cargar ambos pokemones en el estado de redux pero lo solucione desde el Backend
-                pokemonList: action.payload
+                pokemonList: action.payload,
+                pokemonSearched: []
             }
         case GET_POKEMON_DETAIL:
             return {
@@ -36,7 +37,7 @@ const rootReducer = (state = initialState, action) => {
         case SEARCH_POKEMON:
             return {
                 ...state,
-                pokemonSearched: action.payload
+                pokemonSearched: [action.payload]
             }
         case CREATE_POKEMON:
             return {
