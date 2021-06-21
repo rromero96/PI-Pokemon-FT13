@@ -5,7 +5,7 @@ const axios = require('axios');
 var array = [];
 
 
-async function getApiPokemon (req, res) {
+ async function getApiPokemon (req, res) {
     let type;
     if(req.query.name) {
         var lower = req.query.name.toLowerCase();
@@ -33,18 +33,36 @@ async function getApiPokemon (req, res) {
             const pokemonDb = await Pokemon.findOne({
                 where:{
                     name: lower
-                }
+                },
+                include: Tipo
             })
             if(!pokemonDb) {
                 return res.status(404).send({message: 'Bad Request'})
             }
-            return res.send(pokemonDb);
+            if(pokemonDb.tipos.length === 1) {
+                type = pokemonDb.tipos[0].name;
+            } else {
+                type = pokemonDb.tipos[0].name + " " + pokemonDb.tipos[1].name;
+            }
+            var finalPokemon ={
+                name : pokemonDb.name.charAt(0).toUpperCase() + pokemonDb.name.slice(1),
+                id: pokemonDb.id,
+                types: type,
+                height: pokemonDb.height,
+                weight: pokemonDb.weight,
+                hp: pokemonDb.hp,
+                attack: pokemonDb.attack,
+                defense: pokemonDb.defense,
+                speed: pokemonDb.speed
+
+            } 
+            return res.send(finalPokemon);
             
         }
         return res.send(obj);
 
     } else {
-        if(array.length === 0) {
+        if(array.length < 40) {
             try {
                 const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
                 const pokemon2 = await axios.get(pokemon.data.next);
@@ -73,13 +91,12 @@ async function getApiPokemon (req, res) {
         return res.send(array);
 
     }
-}
-
+} 
  
 
 async function getIdPokemon (req, res){
     let type;
-    if(req.params.idPokemon.length > 30) {
+    if(req.params.idPokemon.length > 5) {
         try{
             var pokemonDb = await Pokemon.findOne({
                 where:{
@@ -138,6 +155,7 @@ async function getIdPokemon (req, res){
         return res.send(obj);
     }
 }
+
 
 
 async function addPokemon (req, res, next) {
