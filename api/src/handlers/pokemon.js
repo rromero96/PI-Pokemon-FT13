@@ -79,7 +79,8 @@ var array = [];
                         name: subRequest.data.name.charAt(0).toUpperCase() + subRequest.data.name.slice(1),
                         image: subRequest.data.sprites.other.dream_world.front_default,
                         id: subRequest.data.id, 
-                        types: type
+                        types: type,
+                        types1:subRequest.data.types
                     }
                     array.push(obj);
                     console.log(obj); 
