@@ -80,7 +80,7 @@ var array = [];
                         image: subRequest.data.sprites.other.dream_world.front_default,
                         id: subRequest.data.id, 
                         types: type,
-                        types1:subRequest.data.types
+                        /* types1:subRequest.data.types */
                     }
                     array.push(obj);
                     console.log(obj); 
