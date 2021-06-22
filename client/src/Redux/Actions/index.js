@@ -26,7 +26,6 @@ export const getPokemonDetail = (id) => async (dispatch) => {
     const res = await axios.get("http://localhost:3001/pokemons/" + id);
     dispatch({type: GET_POKEMON_DETAIL , payload: res.data});
   } catch (err) {
-    if(err.res !== 404) alert("There has been an ERROR")
     dispatch({type: GET_POKEMON_DETAIL , payload: null})
   }
 };
@@ -53,7 +52,7 @@ export const getTypes = () => async (dispatch) => {
     const res = await axios.get("http://localhost:3001/pokemons?name=" + name);
     dispatch({type: SEARCH_POKEMON , payload: res.data});
   } catch (err) {
-    console.log(err);
+    /* dispatch({type: SEARCH_POKEMON , payload: null}); */
   }
 };
 
@@ -66,9 +65,13 @@ export const newPokemon = (pokemon) => async (dispatch) => {
   }
 }; 
 
-/* export const filterPokemon = (type) => (dispatch) => {
 
-  dispatch({type: FILTER_POKEMON , payload: res})
-}
- */
+export const filterPokemon = (types, array) => (dispatch) =>{
+  const type1 = new RegExp(types);
+  const res = array.filter(c => c.types.match(type1));
+  dispatch({type: FILTER_POKEMON, payload: [...res]})
+
+};
+
+
 

@@ -9,7 +9,7 @@ import { NewPokemon } from './components/screens/NewPokemon/NewPokemon';
 import { Navbar }  from './components/component/Navbar/Navbar';
 import { Filter } from './components/screens/Filter/Filter';
 import { Searched } from './components/screens/Searched/Searched';
-import { SearchNav } from './components/component/SearchNav/SearchNav'
+import { SearchNav } from './components/component/Navbar/SearchNav'
 
 
 

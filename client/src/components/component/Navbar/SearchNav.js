@@ -1,11 +1,12 @@
 import React from 'react'
-import pokeLogo  from '../Navbar/pokeLogo.png'
-import SearchBar from '../SearchBar/SearchBar'
+import './Navbar.css';
+import pokeLogo  from './pokeLogo.png'
+import SearchBar  from '../SearchBar/SearchBar'
 import {Link} from 'react-router-dom'
 
 
 
-export function SearchNav() {
+export  function SearchNav() {
     
     return (
         
@@ -17,15 +18,13 @@ export function SearchNav() {
             <Link to="/newPoke">NewPokemon</Link>
             <Link to="/home/filter">Filter</Link>
                 </div>  
-                <div className="barra">
-                <SearchBar />
-
-                </div>
             </div>
             
+            <SearchBar />
 
         </div>
        
        );
     }
     
+   

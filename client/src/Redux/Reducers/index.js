@@ -47,12 +47,12 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 pokemonCreated: state.pokemonCreated.concat(action.payload)
             }  
-    /*     case FILTER_POKEMON:
+        case FILTER_POKEMON:
             return {
                 ...state,
-                pokemonFiltered: pokemonList.filter(p.type ===  action.payload)
+                pokemonFiltered: action.payload
             }    
-         */
+        
         default:
             return state
     }

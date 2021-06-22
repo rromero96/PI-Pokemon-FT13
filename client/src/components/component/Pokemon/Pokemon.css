@@ -60,6 +60,16 @@ img.medium {
     
   }
 
+.card:hover{
+  text-decoration: none;
+  border: 0.1rem #ff8000 solid;
+  -webkit-transform:scale(1.35);
+  -moz-transform:scale(1.35);
+  -ms-transform:scale(1.35);
+  -o-transform:scale(1.35);
+  transform:scale(1.35);
+}  
+
 
 /* Common */
 .card-body h1 {
@@ -75,3 +85,5 @@ img.medium {
     padding: 0rem 0;
     text-decoration: none;
   }
+
+  

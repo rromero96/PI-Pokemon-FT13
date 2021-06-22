@@ -1,12 +1,10 @@
 import React from 'react'
-import './Navbar.css';
 import pokeLogo  from './pokeLogo.png'
-
 import {Link} from 'react-router-dom'
 
 
 
-export  function Navbar() {
+export function Navbar() {
     
     return (
         
@@ -19,6 +17,9 @@ export  function Navbar() {
             <Link to="/home/filter">Filter</Link>
             <Link to="/search">Search</Link>
                 </div>  
+                
+
+               
             </div>
             
 
@@ -27,4 +28,3 @@ export  function Navbar() {
        );
     }
     
-   
