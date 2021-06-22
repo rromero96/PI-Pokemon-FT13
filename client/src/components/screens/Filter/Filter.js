@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import './Filter.css'
-import {filterPokemon} from '../../../Redux/Actions/index.js'
+import {filterPokemon, filterApi} from '../../../Redux/Actions/index.js'
 import Pokemon from '../../component/Pokemon/Pokemon'
 import { Link } from 'react-router-dom';
 
@@ -12,25 +12,13 @@ export function Filter() {
     const pokemonTypes = useSelector(state => state.pokemonTypes)
     const pokemonList = useSelector(state => state.pokemonList);
 
-    const [input, setInput] = useState({
-        type1: '',
-        order: '',
-       });
-    
-       const handleInputChange = function(e) {
-        setInput({
-          ...input,
-          [e.target.name]: e.target.value
-        });
-
-      }
 
       function filter(e) {
         dispatch(filterPokemon(e.target.value, pokemonList))
       }
 
-      function filterApi(e) {
-        dispatch(filterPokemon(e.target.value, pokemonList))
+      function filtApi(e) {
+        dispatch(filterApi(e.target.value, pokemonList))
       }
 
 
@@ -38,20 +26,21 @@ export function Filter() {
     return (
         <div>
              <span>Filter By Type</span>
-                <select className="type" name="type" key={input.type1.id} value={input.id} onChange={filter}>
+                <select className="type" name="type"  onChange={filter}>
                     <option value='null'>null</option>
                     {pokemonTypes && pokemonTypes.map((c, index) => (
                     <option value={c.name} key={index} name="c.name">{c.name}</option>
                     ))}
                 </select>  
             <span>Filter By Creator</span>
-            <select className="type" name="type" onChange={filterApi}>
+            <select className="type" name="type" onChange={filtApi}>
                     <option value="null">null</option>
-                    <option value="1">Api Poke</option>
-                    <option value="2">Created Poke</option>
+                    <option value="all">All</option>
+                    <option value="api">Api Poke</option>
+                    <option value="db">Created Poke</option>
             </select>        
             <span>Order By</span>
-                <select className="type" name="type" key='order' onChange={handleInputChange}>
+                <select className="type" name="type" key='order' >
                     <option value="null">null</option>
                     <option value="az" name='az'>A - Z</option>
                     <option value="za" name='za'>Z - A</option>

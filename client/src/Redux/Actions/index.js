@@ -76,16 +76,26 @@ export const filterPokemon = (types, array) => (dispatch) =>{
 
 export const filterApi = (creator, array) => (dispatch) => {
   console.log(creator);
-  if(creator === '1') {
-    const res = array.filter(c  =>typeof c.id === 'number')
-    dispatch({type: FILTER_POKEMON, payload: [...res]})
+  if(creator === 'api') {
+   const res = array.filter(c  =>typeof c.id === 'number')
+   dispatch({type: FILTER_POKEMON, payload: [...res]})
   }
-  if(creator === "2") {
-    const res = array.filter(c  =>typeof c.id === 'string')
-    dispatch({type: FILTER_POKEMON, payload: [...res]})
+  if(creator === 'db') {
+   const res = array.filter(c  =>typeof c.id === 'string')
+   dispatch({type: FILTER_POKEMON, payload: [...res]})
   } 
+  if(creator === 'all') {
+    dispatch({type: FILTER_POKEMON, payload: [...array]})
+  }
+ 
 }
 
 export const orderApi = (condition, array) => (dispatch) => {
   
 }
+
+
+export const GetPokemonOrigin = (origin, array) => {
+}; 
+
+
