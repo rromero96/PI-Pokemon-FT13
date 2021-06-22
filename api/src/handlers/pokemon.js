@@ -80,6 +80,7 @@ var array = [];
                         image: subRequest.data.sprites.other.dream_world.front_default,
                         id: subRequest.data.id, 
                         types: type,
+                        attack: subRequest.data.stats[1].base_stat
                         /* types1:subRequest.data.types */
                     }
                     array.push(obj);
