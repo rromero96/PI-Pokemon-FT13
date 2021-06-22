@@ -67,11 +67,25 @@ export const newPokemon = (pokemon) => async (dispatch) => {
 
 
 export const filterPokemon = (types, array) => (dispatch) =>{
+  console.log(types);
   const type1 = new RegExp(types);
   const res = array.filter(c => c.types.match(type1));
   dispatch({type: FILTER_POKEMON, payload: [...res]})
 
 };
 
+export const filterApi = (creator, array) => (dispatch) => {
+  console.log(creator);
+  if(creator === '1') {
+    const res = array.filter(c  =>typeof c.id === 'number')
+    dispatch({type: FILTER_POKEMON, payload: [...res]})
+  }
+  if(creator === "2") {
+    const res = array.filter(c  =>typeof c.id === 'string')
+    dispatch({type: FILTER_POKEMON, payload: [...res]})
+  } 
+}
 
-
+export const orderApi = (condition, array) => (dispatch) => {
+  
+}
