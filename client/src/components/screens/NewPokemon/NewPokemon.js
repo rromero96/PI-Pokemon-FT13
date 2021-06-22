@@ -64,7 +64,7 @@ export function NewPokemon() {
       
       return (
         <div className="forma">
-        <img className="foto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg"/>
+        <img className="foto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg" alt="foto poke"/>
         <form className='tabla' onSubmit={handleSubmit}>
             <div>
               <label>PokeName:</label>

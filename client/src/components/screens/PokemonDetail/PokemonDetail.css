@@ -37,17 +37,20 @@ img.medium {
     background-color: #f8f8f8;
     border-radius: 1rem;
     margin: 1.8rem;
-    margin-top: 4rem;
     text-decoration: none;
     width: 60em;
     height: 100%;
-    padding: 2em;
+    padding: 1em;
+    /* zoom: 0.7; */
   }
 
   .large {
-   position: absolute;
-   right: 650px;
-   top:120px;
+    display: block;
+    margin: 16px auto;
+    border-radius: 16px;
+    height: 150px;
+    width: 150px;
+    object-fit: contain;
   }
 
   .detail .bigcard .large {
@@ -67,7 +70,7 @@ img.medium {
   .card-body1 > * {
     color: #000000;
     text-align: center; 
-    margin-top: 130px; 
+    margin-top: 20px; 
 
   }
 

@@ -48,6 +48,7 @@ img {
     width: 14em;
     height: 18em;
     padding: 3em;
+    transition: .35s;
   }
   
   .card-body > * {
@@ -60,11 +61,7 @@ img {
 .card:hover{
   text-decoration: none;
   border: 0.1rem #ff8000 solid;
-  -webkit-transform:scale(1.35);
-  -moz-transform:scale(1.35);
-  -ms-transform:scale(1.35);
-  -o-transform:scale(1.35);
-  transform:scale(1.35);
+  transform: scale(1.15);
 }  
 
 
