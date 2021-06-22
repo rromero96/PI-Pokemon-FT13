@@ -91,11 +91,48 @@ export const filterApi = (creator, array) => (dispatch) => {
 }
 
 export const orderApi = (condition, array) => (dispatch) => {
+  if(condition === 'az') {
+    const nombre1 = array.sort((a, b) => {
+      const first = a.name;
+      const last = b.name;
+      if(first < last ){
+        return -1;
+      } 
+      if(first > last) {
+        return 1;
+      } else {
+        return 0;
+      }
+      
+    })
+    dispatch({type: FILTER_POKEMON, payload:[...nombre1]})
+  }
+  if(condition === 'za') {
+    const nombre2 = array.sort((a, b) => {
+      const first = a.name;
+      const last = b.name;
+      if(first > last ){
+        return -1;
+      } 
+      if(first < last) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }) 
+    dispatch({type: FILTER_POKEMON, payload:[...nombre2]}) 
+  }
+  if(condition === 'attack+'){
+    const attack = array.sort((a,b) => b.attack - a.attack)
+    dispatch({type: FILTER_POKEMON, payload:[...attack]}) 
+  }
+  if(condition === 'attack-'){
+    const attack = array.sort((a,b) => a.attack - b.attack)
+    dispatch({type: FILTER_POKEMON, payload:[...attack]}) 
+  }
   
 }
 
 
-export const GetPokemonOrigin = (origin, array) => {
-}; 
 
 

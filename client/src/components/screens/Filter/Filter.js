@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import './Filter.css'
-import {filterPokemon, filterApi} from '../../../Redux/Actions/index.js'
+import {filterPokemon, filterApi, orderApi} from '../../../Redux/Actions/index.js'
 import Pokemon from '../../component/Pokemon/Pokemon'
 import { Link } from 'react-router-dom';
 
@@ -19,6 +19,10 @@ export function Filter() {
 
       function filtApi(e) {
         dispatch(filterApi(e.target.value, pokemonList))
+      }
+
+      function ordApi(e) {
+        dispatch(orderApi(e.target.value, pokemonList))
       }
 
 
@@ -40,7 +44,7 @@ export function Filter() {
                     <option value="db">Created Poke</option>
             </select>        
             <span>Order By</span>
-                <select className="type" name="type" key='order' >
+                <select className="type" name="type" key='order' onChange={ordApi}>
                     <option value="null">null</option>
                     <option value="az" name='az'>A - Z</option>
                     <option value="za" name='za'>Z - A</option>
