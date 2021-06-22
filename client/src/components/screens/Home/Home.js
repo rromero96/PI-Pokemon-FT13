@@ -42,29 +42,42 @@ export function Home() {
           else setCurrentPage(pageNumber)
       }
 
-    return (
-            <div className="home">     
-                <div className="row center"> 
-                {
-                 currentPokemons.map((pokemon, index)=> (
-                    <Link to={`/pokeDetail/${pokemon.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-                <Pokemon key={index} pokemon={pokemon} loading={loading}></Pokemon>
-                    </Link> 
-              )) 
-              }
-              </div>
-              <div className="footer">
-                  <button onClick={() => {prePage()}}>Previous</button>
-                  <button onClick={() => {nextPage()}}>Next</button>
-              </div>
+   
+    if(pokemonList === null ) {
+        return (
+            <div className='notFound'>
+                <h1>Pokemon NOT FOUND!!</h1>
+                <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif' alt='pokemon img'/>
             </div>
-            
-    )
+            )
+        }else if (pokemonList.length < 40) {
+            return (
+                <div className='loading'>
+                    <h1>LOADING</h1>
+                    <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
+                </div>
+                )
+            } else { 
+                return  ( <div className="home">     
+                    <div className="row center"> 
+                    {
+                    currentPokemons.map((pokemon, index)=> (
+                        <Link to={`/pokeDetail/${pokemon.id}`} style={{ textDecoration: 'none', color: 'black' }}>
+                    <Pokemon key={index} pokemon={pokemon} loading={loading}></Pokemon>
+                        </Link> 
+                )) 
+                }
+                </div>
+                <div className="footer">
+                    <button onClick={() => {prePage()}}>Previous</button>
+                    <button onClick={() => {nextPage()}}>Next</button>
+                </div>
+                </div>)
+    
+            }            
 }
 
 
 export default Home
-
-
 
 
