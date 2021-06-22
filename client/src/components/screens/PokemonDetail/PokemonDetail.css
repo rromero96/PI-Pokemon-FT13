@@ -26,8 +26,9 @@ img {
 }
 img.medium {
     max-width: 18rem;    /* Image si quiero que hayan 3 filas de 4 poner 26 rem */
-    width: 90%;
+    width: 90%; 
 }
+
 
 /* Card */
 
@@ -38,7 +39,7 @@ img.medium {
     margin: 1.8rem;
     margin-top: 4rem;
     text-decoration: none;
-    width: 20em;
+    width: 60em;
     height: 100%;
     padding: 2em;
   }

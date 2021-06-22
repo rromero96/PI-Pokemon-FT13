@@ -53,7 +53,7 @@ export function Home() {
               )) 
               }
               </div>
-              <div>
+              <div className="footer">
                   <button onClick={() => {prePage()}}>Previous</button>
                   <button onClick={() => {nextPage()}}>Next</button>
               </div>

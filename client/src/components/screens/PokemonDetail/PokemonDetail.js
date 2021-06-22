@@ -39,7 +39,7 @@ export function PokemonDetail() {
             } else { 
                 return  (<div className="row center">
                 <div key={pokemonDetail.id} className="bigcard">
-                    <img className="medium" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
+                    <img className="large" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
                         <div className="card-body">
                             <h2>Name: {pokemonDetail.name}</h2>
                             <h4>ID: {pokemonDetail.id}</h4>
