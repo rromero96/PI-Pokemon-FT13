@@ -188,7 +188,8 @@ async function addPokemon (req, res, next) {
             name: result.name.charAt(0).toUpperCase() + result.name.slice(1),
             id: result.id,
             image: "https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png",
-            types: type
+            types: type,
+            attack: result.attack
 
         });     // con el array push hago que el pokemon creado este en el primer /GET y esten todos juntos y no solo en redux
         return res.send(result);
