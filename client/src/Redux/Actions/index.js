@@ -6,7 +6,6 @@ import {
   GET_POKEMON_DETAIL,
   SEARCH_POKEMON,
   FILTER_POKEMON,
-  ORDER_POKEMON
 } from "./actionTypes";
 
 
@@ -87,6 +86,9 @@ export const filterApi = (creator, array) => (dispatch) => {
   if(creator === 'all') {
     dispatch({type: FILTER_POKEMON, payload: [...array]})
   }
+  if(creator === 'null') {
+    dispatch({type: FILTER_POKEMON, payload: []})
+  }
  
 }
 
@@ -129,6 +131,9 @@ export const orderApi = (condition, array) => (dispatch) => {
   if(condition === 'attack-'){
     const attack = array.sort((a,b) => a.attack - b.attack)
     dispatch({type: FILTER_POKEMON, payload:[...attack]}) 
+  }
+  if(condition === 'null') {
+    dispatch({type: FILTER_POKEMON, payload: []})
   }
   
 }

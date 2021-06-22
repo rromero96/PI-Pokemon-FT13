@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import './Filter.css'
 import {filterPokemon, filterApi, orderApi} from '../../../Redux/Actions/index.js'

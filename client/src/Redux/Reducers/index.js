@@ -5,7 +5,6 @@ import {
   GET_POKEMON_DETAIL,
   SEARCH_POKEMON,
   FILTER_POKEMON,
-  ORDER_POKEMON
   } from "../Actions/actionTypes";
 
 const initialState = {
