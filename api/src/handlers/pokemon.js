@@ -139,7 +139,7 @@ async function getIdPokemon (req, res){
             console.log(type);
     
             var obj = {
-                name: pokemon.data.name,
+                name: pokemon.data.name.charAt(0).toUpperCase() + pokemon.data.name.slice(1),
                 id: pokemon.data.id,
                 image: pokemon.data.sprites.other.dream_world.front_default,
                 types: type,
