@@ -1,4 +1,4 @@
-import '../../component/Pokemon/Pokemon.css';
+import './Home.css'
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getPokemons} from '../../../Redux/Actions/index.js'
@@ -43,7 +43,7 @@ export function Home() {
       }
 
     return (
-            <div>     
+            <div className="home">     
                 <div className="row center"> 
                 {
                  currentPokemons.map((pokemon, index)=> (

@@ -63,7 +63,9 @@ export function NewPokemon() {
     
       
       return (
-        <form onSubmit={handleSubmit}>
+        <div className="forma">
+        <img className="foto" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg"/>
+        <form className='tabla' onSubmit={handleSubmit}>
             <div>
               <label>PokeName:</label>
               <input className={errors.PokeName && 'danger'} type="text" name="name" onChange={handleInputChange} value={input.name} />
@@ -117,8 +119,9 @@ export function NewPokemon() {
             </div>
             </div>
             </div>
-            <button onClick={()=>dispatch(newPokemon(input))}>CREATE</button>
+            <button className="btn1" onClick={()=>dispatch(newPokemon(input))}>CREATE</button>
           </form>
+          </div>
         )
 } 
 

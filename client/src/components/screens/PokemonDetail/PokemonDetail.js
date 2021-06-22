@@ -24,23 +24,23 @@ export function PokemonDetail() {
    
      if(pokemonDetail === null) {
         return (
-            <div>
+            <div className='notFound'>
                 <h1>Pokemon NOT FOUND!!</h1>
                 <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif' alt='pokemon img'/>
             </div>
             )
         }else if (pokemonDetail === undefined) {
             return (
-                <div>
+                <div className='loading'>
                      <h1>LOADING</h1>
                     <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
                 </div>
                 )
             } else { 
-                return  (<div className="row center">
+                return  (<div className="detail">
                 <div key={pokemonDetail.id} className="bigcard">
                     <img className="large" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
-                        <div className="card-body">
+                        <div className="card-body1">
                             <h2>Name: {pokemonDetail.name}</h2>
                             <h4>ID: {pokemonDetail.id}</h4>
                             <h4>Heigth: {pokemonDetail.height}</h4>

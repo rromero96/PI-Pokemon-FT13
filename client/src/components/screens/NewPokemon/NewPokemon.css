@@ -1,0 +1,32 @@
+.forma {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 4px solid #ff0000;
+    border-radius:2rem;
+    margin:80px;
+    padding: 70px;
+}
+
+.forma .tabla .btn1 {
+    width:300px;
+    height:60px;
+    border-radius:1rem;
+    margin-top: 50px;
+}
+
+.forma .tabla .btn1:hover{
+    color: #ff8000;
+    border-color: #ff8000;
+}
+.forma .foto{
+ margin-top: -100px;
+}
+
+.forma input{
+    margin-top:18px;
+}
+
+.forma select {
+    margin-top:18px;
+}

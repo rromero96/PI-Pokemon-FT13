@@ -1,0 +1,19 @@
+.footer {
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    align-content: center;
+    margin-bottom:60px;
+}
+
+.footer button {
+    margin-right: 20px;
+    width:180px;
+    height: 30px;
+    border-radius:4px;
+}
+
+.footer button:hover {
+    color: #ff8000;
+    border-color: #ff8000;
+}

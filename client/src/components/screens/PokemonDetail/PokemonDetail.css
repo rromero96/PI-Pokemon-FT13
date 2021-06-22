@@ -43,26 +43,65 @@ img.medium {
     height: 100%;
     padding: 2em;
   }
-  
-  .card-body > * {
-    margin: 0.5rem;
-    color: #000000;
-    text-align: center;
-    
+
+  .large {
+   position: absolute;
+   right: 650px;
+   top:120px;
   }
 
+  .detail .bigcard .large {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
 
+  .detail{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+  }
+  
+  .card-body1 > * {
+    color: #000000;
+    text-align: center; 
+    margin-top: 130px; 
+
+  }
+
+ 
+
+ 
 /* Common */
-.card-body h1 {
+.card-body1 h1 {
     font-size: 2rem;
-    padding: 0rem 0;
+    padding: 0rem ;
     text-decoration: none;
    
 
   }
 
-.card-body h4 {
+.card-body1 h4 {
     font-size: 1.4rem;
     padding: 0rem 0;
     text-decoration: none;
+    margin-top: 20px;
   }
+
+
+
+  .loading{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
+.notFound{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center; 
+}
