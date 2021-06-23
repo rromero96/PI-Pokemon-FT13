@@ -75,27 +75,27 @@ export function NewPokemon() {
                
               <div>
               <label>Hp:</label>
-              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp} />
+              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp}  placeholder='0 - 200'/>
             
          <div>
               <label>Attack:</label>
-              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} />
+              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} placeholder='0 - 200'/>
               
          <div>
               <label>Defense:</label>
-              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} value={input.defense} />
+              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} value={input.defense}placeholder='0 - 200' />
              
          <div>
               <label>Speed:</label>
-              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} />
+              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} placeholder='0 - 200'/>
               
          <div>
               <label>Height:</label>
-              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height} />
+              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height} placeholder='0 - 200' />
             
          <div>
               <label>Weight:</label>
-              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} />
+              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} placeholder='0 - 200'/>
               <br/>
               <span>Type-1</span>
               <select className="tipe1" name="type1" value={input.id} onChange={handleInputChange}>
