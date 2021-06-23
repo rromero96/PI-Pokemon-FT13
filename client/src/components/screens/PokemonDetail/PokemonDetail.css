@@ -104,7 +104,12 @@ img.medium {
 
 .notFound{
   display:flex;
-  justify-content: center;
-  align-items: center;
-  align-content: center; 
+ flex-direction: column;
+ justify-content:center;
+ align-items:center; 
+ margin-top:20px;
+}
+
+.notFound img {
+   zoom:3;
 }
