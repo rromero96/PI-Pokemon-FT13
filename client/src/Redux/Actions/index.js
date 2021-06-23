@@ -60,7 +60,7 @@ export const newPokemon = (pokemon) => async (dispatch) => {
     const res = await axios.post("http://localhost:3001/pokemons", pokemon);
     dispatch({type: CREATE_POKEMON , payload: res.data}, alert("POKEMON CREATED OK"));
   } catch (err) {
-    console.log(err);
+    alert("ERROR Pokemon not Created");
   }
 }; 
 
