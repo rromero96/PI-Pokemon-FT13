@@ -22,3 +22,26 @@ describe('Pokemon routes', () => {
     );
   });
 });
+
+
+/* describe('Model Testing', function() {
+  afterAll(async function() {
+    await db.sync({ force: true });
+    db.close();
+  })
+  describe('Pokemon model', function () {
+    beforeEach(async function() {
+      await Pokemon.sync({ force: true });
+    });
+    describe('Validations', function () {
+      it('error sin nombre', function(done) {
+         Pokemon.create({
+          hp: 9,
+         })
+          .then(() => done('No debería haberse creado'))
+          .catch(() => done());
+      });
+    });
+   });  
+     
+}) */

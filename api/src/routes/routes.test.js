@@ -23,19 +23,6 @@ describe('Routes', function() {
         });
     });
 
-    it('POST agrega un nuevo pokemon y lo devuelve', function() {
-      pokemons.addPokemon({ "name": "rodrigo","hp": 100,"attack": 88,"defense": 99, "speed": 7,"height": 66, "weight": 4,"type1": 9, "type2":5});
-      return supertest
-        .post('/pokemons')
-        .send({ "name": "rodrigo","hp": 100,"attack": 88,"defense": 99, "speed": 7,"height": 66, "weight": 4,"type1": 9, "type2":5})
-        .expect(200)
-        .expect('Content-Type', /json/)
-        .expect(function(res) {
-          expect(res.body).toEqual({ "name": "rodrigo","hp": 100,"attack": 88,"defense": 99, "speed": 7,"height": 66, "weight": 4,"tipos": [ {"id": 9, "name": "steel", }, { "id": 5,  "name": "ground", }
-        ]});
-        });
-    });
-
     describe('/types', function() {
         it('GET responde con un array de 20 types', function() {
           return supertest // supertest nos permite hacer y testear requests HTTP
