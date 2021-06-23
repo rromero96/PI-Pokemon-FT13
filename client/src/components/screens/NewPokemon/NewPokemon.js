@@ -75,34 +75,55 @@ export function NewPokemon() {
                
               <div>
               <label>Hp:</label>
-              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp}  placeholder='0 - 200'/>
+              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp}  placeholder='0 - 255'/>
+              {errors.hp && (
+              <p className="danger">{errors.hp}</p>
+              )}
             
          <div>
               <label>Attack:</label>
-              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} placeholder='0 - 200'/>
+              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} placeholder='0 - 255'/>
+              {errors.attack && (
+              <p className="danger">{errors.attack}</p>
+              )}
               
          <div>
               <label>Defense:</label>
-              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} value={input.defense}placeholder='0 - 200' />
+              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} value={input.defense}placeholder='0 - 255' />
+              {errors.defense && (
+              <p className="danger">{errors.defense}</p>
+              )}
              
          <div>
               <label>Speed:</label>
-              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} placeholder='0 - 200'/>
+              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} placeholder='0 - 255'/>
+              {errors.speed && (
+              <p className="danger">{errors.speed}</p>
+              )}
               
          <div>
               <label>Height:</label>
-              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height} placeholder='0 - 200' />
+              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height} placeholder='0 - 255' />
+              {errors.height && (
+              <p className="danger">{errors.height}</p>
+              )}
             
          <div>
               <label>Weight:</label>
-              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} placeholder='0 - 200'/>
+              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} placeholder='0 - 255'/>
+              {errors.weight && (
+              <p className="danger">{errors.weight}</p>
+              )}
               <br/>
               <span>Type-1</span>
-              <select className="tipe1" name="type1" value={input.id} onChange={handleInputChange}>
+              <select className={errors.type1 && "type1"} name="type1" value={input.id} onChange={handleInputChange}>
                     <option value='null'>null</option>
                     {pokemonTypes && pokemonTypes.map(c => (
                     <option value={c.id} name="c.name">{c.name}</option>
                     ))}
+                    {errors.type1 && (
+                    <p className="tipe1">{errors.type1}</p>
+                    )}
                 </select>
                 <br/>
               <span>Type-2</span>
@@ -132,7 +153,42 @@ export function NewPokemon() {
     } else if (!/^[A-Za-z]+$/.test(input.name)) {
       errors.name = 'PokeName must be a text string';
     }
+    if (!input.hp) {
+      errors.hp = 'Hp is required';
+    } else if (!/^([0-9]{1,2}|1[0-9]{1,2}|2[0-4][0-9]|25[0-5])$/.test(input.hp)) {
+      errors.hp = 'Hp must be between 1 and 255';
+    }
+    if (!input.attack) {
+      errors.attack = 'Attack is required';
+    } else if (!/^([0-9]{1,2}|1[0-9]{1,2}|2[0-4][0-9]|25[0-5])$/.test(input.attack)) {
+      errors.attack = 'Attack must be between 1 and 255';
+    }
+    if (!input.defense) {
+      errors.defense = 'Defense is required';
+    } else if (!/^([0-9]{1,2}|1[0-9]{1,2}|2[0-4][0-9]|25[0-5])$/.test(input.defense)) {
+      errors.defense = 'Defense must be between 1 and 255';
+    }
+    if (!input.speed) {
+      errors.speed = 'Speed is required';
+    } else if (!/^([0-9]{1,2}|1[0-9]{1,2}|2[0-4][0-9]|25[0-5])$/.test(input.speed)) {
+      errors.speed = 'Speed must be between 1 and 255';
+    }
+    if (!input.height) {
+      errors.height = 'Heigth is required';
+    } else if (!/^([0-9]{1,2}|1[0-9]{1,2}|2[0-4][0-9]|25[0-5])$/.test(input.height)) {
+      errors.height = 'Heigth must be between 1 and 255';
+    }
+    if (!input.weight) {
+      errors.weight = 'Weigth is required';
+    } else if (!/^([0-9]{1,2}|1[0-9]{1,2}|2[0-4][0-9]|25[0-5])$/.test(input.weight)) {
+      errors.weight = 'Weigth must be between 1 and 255';
+    }
+    if (!input.type1 || input.type1 === "null") {
+      errors.type1 = 'Type can not be null';
+    } 
     return errors;
 };
 
 export default NewPokemon;
+
+
