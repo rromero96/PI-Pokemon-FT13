@@ -21,27 +21,26 @@ describe('Pokemon routes', () => {
       agent.get('/pokemons').expect(200)
     );
   });
+  
 });
 
-
-/* describe('Model Testing', function() {
-  afterAll(async function() {
-    await db.sync({ force: true });
-    db.close();
-  })
-  describe('Pokemon model', function () {
-    beforeEach(async function() {
-      await Pokemon.sync({ force: true });
-    });
-    describe('Validations', function () {
-      it('error sin nombre', function(done) {
-         Pokemon.create({
+describe('POST /pokemons', () => {
+  it('responds with 200', () => agent.post('/pokemons').expect(200))
+  it('should return the detail of the pokemon', () => 
+    agent.post('/pokemons')
+    .send({
+      name: "Martin",
+      hp: 9,
+      attack: 4,
+      defense: 10,
+      speed: 20
+      })
+      .then(function(res){
+        expect(res.body).to.deep.equal({
+          name: "Martin",
           hp: 9,
-         })
-          .then(() => done('No debería haberse creado'))
-          .catch(() => done());
-      });
-    });
-   });  
-     
-}) */
+          attack: 4,
+          defense: 10,
+          speed: 20
+        })
+}))});
