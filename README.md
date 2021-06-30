@@ -8,11 +8,25 @@
   <img height="150" src="./pokemon.png" />
 </p>
 
-## Objetivos del Proyecto
 
-- Construir una App utlizando React, Redux, Node y Sequelize.
-- Afirmar y conectar los conceptos aprendidos en la carrera.
-- Aprender mejores prácticas.
-- Aprender y practicar el workflow de GIT.
-- Usar y practicar testing.
+## Project Objectives
+
+- Build an App using React, Redux, Node and Sequelize.
+- Affirm and connect the concepts learned in the career.
+- Learn best practices.
+- Learn and practice the GIT workflow.
+- Use and practice testing.
+
+
+
+## Functionality
+
+- Bring pokemons from the PokeAPI.
+- Create a new pokemon in the database.
+- Be able to filter Pokemon by type.
+- Be able to order pokemon in A-Z, Z-A, Attack + or Attack-.
+- Find a pokemon.
+
+
+## Soon you will see it deployed 🤟
 
