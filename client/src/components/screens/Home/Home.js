@@ -42,7 +42,7 @@ export function Home() {
     
 
    
-    if (pokemonList.length < 40) {
+    if (pokemonList.length < 12) {
     return (
         <div className='loading'>
             <h1>LOADING</h1>
@@ -60,10 +60,8 @@ export function Home() {
         )) 
         }
         </div>
-        <div className="footer">
             <button onClick={() => {prePage()}}>Previous</button>
             <button onClick={() => {nextPage()}}>Next</button>
-        </div>
         </div>)
 
     }            

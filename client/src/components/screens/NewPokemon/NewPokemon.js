@@ -3,7 +3,7 @@ import './NewPokemon.css'
 /* import { connect } from 'react-redux'; */
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { newPokemon, getTypes } from '../../../Redux/Actions/index.js'
+import { newPokemon, getTypes, getPokemons } from '../../../Redux/Actions/index.js'
 
 export function NewPokemon() {
 
@@ -14,6 +14,7 @@ export function NewPokemon() {
 
     useEffect(() =>{
       dispatch(getTypes());
+      dispatch(getPokemons());
   },[dispatch])
 
     const [input, setInput] = React.useState({
