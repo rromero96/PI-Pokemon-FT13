@@ -50,8 +50,7 @@ export function Filter() {
                     <option value="az" name='az'>A - Z</option>
                     <option value="za" name='za'>Z - A</option>
                     <option value="attack+" name='null'>Attack +</option>
-                    <option value="attack-" name='null'>Attack -</option>
-                    
+                    <option value="attack-" name='null'>Attack -</option>                    
                 </select>  
                 </div>
 

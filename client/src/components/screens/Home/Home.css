@@ -1,19 +1,34 @@
-.footer {
+.home{
+    background: url("https://i.pinimg.com/originals/3c/e1/08/3ce108acea3d06fddbf96e9682f5ea25.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+/* .home button {
     display:flex;
     justify-content:center;
     align-items:center;
     align-content: center;
     margin-bottom:60px;
-}
+} */
 
-.footer button {
+.home button {
     margin-right: 20px;
     width:180px;
     height: 30px;
     border-radius:4px;
+    margin-bottom:40px;
+    justify-content:center;
+    align-items:center;
+    align-content: center;
+    display:fixed;
+    right:600px;
+
 }
 
-.footer button:hover {
+.home button:hover {
     color: #ff8000;
     border-color: #ff8000;
 }

@@ -2,9 +2,6 @@ const {Pokemon, Tipo} = require('../db.js');
 const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 
-var array = [];
-
-
  async function getApiPokemon (req, res) {
     let type;
     if(req.query.name) {
@@ -63,36 +60,53 @@ var array = [];
         return res.send(obj);
 
     } else {
-        if(array.length < 40) {
-            try {
-                const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
-                const pokemon2 = await axios.get(pokemon.data.next);
-                const poke2= pokemon.data.results.concat(pokemon2.data.results);
-                for(let i in poke2) {
-                    let subRequest = await axios.get(`${poke2[i].url}`)
-                    if(subRequest.data.types.length === 1) {
-                        type = subRequest.data.types[0].type.name;
-                    } else {
-                        type = subRequest.data.types[0].type.name + " " + subRequest.data.types[1].type.name
-                    }
-                    var obj = {
-                        name: subRequest.data.name.charAt(0).toUpperCase() + subRequest.data.name.slice(1),
-                        image: subRequest.data.sprites.other.dream_world.front_default,
-                        id: subRequest.data.id, 
-                        types: type,
-                        attack: subRequest.data.stats[1].base_stat
-                        /* types1:subRequest.data.types */
-                    }
-                    array.push(obj);
-                    console.log(obj); 
+        try {
+            const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
+            const pokemon2 = await axios.get(pokemon.data.next);
+            const poke2= pokemon.data.results.concat(pokemon2.data.results);
+            const res1 = await Promise.all(poke2.map(async pokemon => {
+                let subRequest = await axios.get(pokemon.url)
+                if(subRequest.data.types.length === 1) {
+                    type = subRequest.data.types[0].type.name;
+                } else {
+                    type = subRequest.data.types[0].type.name + " " + subRequest.data.types[1].type.name
                 }
-            } catch(error) {
-                return res.send('ERROR');
-            }
+                return  {
+                    name: subRequest.data.name.charAt(0).toUpperCase() + subRequest.data.name.slice(1),
+                    image: subRequest.data.sprites.other.dream_world.front_default,
+                    id: subRequest.data.id, 
+                    types: type
+                }
+                
+            }))
+            const pokedb = await Pokemon.findAll({
+                include: {
+                    attributes: ['name'],
+                    model: Tipo,
+                    through: {
+                        attributes: [],
+                    }
+                }
+            })
+            const pokedb2 = pokedb.reverse().map(result => {
+                if(result.tipos.length === 1) {
+                    type = result.tipos[0].name;
+                } else {
+                    type = result.tipos[0].name + " " + result.tipos[1].name;
+                }
+                return {
+                    name: result.name.charAt(0).toUpperCase() + result.name.slice(1),
+                    image: "https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png",
+                    id: result.id,
+                    types: type,
+                }
 
+            })
+            var result = pokedb2.concat(res1);
+        } catch(error) {
+            return res.send('ERROR');
         }
-        return res.send(array);
-
+    return res.send(result); 
     }
 } 
  
@@ -179,19 +193,6 @@ async function addPokemon (req, res, next) {
             },
             include: Tipo
         });
-        if(result.tipos.length === 1) {
-            type = result.tipos[0].name;
-        } else {
-            type = result.tipos[0].name + " " + result.tipos[1].name;
-        }
-        array.unshift({
-            name: result.name.charAt(0).toUpperCase() + result.name.slice(1),
-            id: result.id,
-            image: "https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png",
-            types: type,
-            attack: result.attack
-
-        });     // con el array push hago que el pokemon creado este en el primer /GET y esten todos juntos y no solo en redux
         return res.send(result);
     } catch(error) {
         next(error);

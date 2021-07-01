@@ -1,0 +1,136 @@
+html {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 50%; /* 16px x 62.5 = 10px = 1rem */
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    height: 100vh;
+    font-size: 1.28rem;
+  }
+    
+.grid1 {
+    display: grid;
+    grid-template-areas:
+      'header'
+      'main'
+      'footer';  
+    grid-template-columns: 1fr;
+    grid-template-rows: 5rem 1fr 5rem;
+    height: 100%;
+  }  
+
+header {
+    grid-area: header;
+    background-color: #ff0000;
+    height: 120%;
+
+}
+
+main {
+    grid-area: main;
+    padding: 1rem;
+  }
+
+footer {
+    grid-area: footer;
+    background-color: #ff0000;
+    color: #ffffff;
+  }
+
+a{
+    text-decoration:none;
+}
+
+a:hover {
+    color: #ff8000;
+}
+header a{
+    color: #ffffff;
+    padding: 1rem;
+
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items:center;
+  } 
+
+.row.center {
+    justify-content: center;
+    color: #ffffff;
+    padding: 1rem;
+}
+
+
+.row.center.a:hover {
+    color: #ff8000;
+}
+
+input{
+    border: 3px solid #f0c040;
+    height: 25px;
+    width:300px;
+    border-radius:50px;
+    padding: 0px 10px;
+    align-items: center;
+}
+
+button {
+  height:30px;
+  border-radius: 15px;
+  align-items: center;
+  background-color: #f0c040;
+  
+}
+
+
+/* Image */
+img {
+    border-radius: 0.5rem;
+    margin: 1rem;
+}
+img.medium {
+    max-width: 18rem;    /* Image si quiero que hayan 3 filas de 4 poner 26 rem */
+    width: 100%;
+}
+
+/* Card */
+
+.card {
+    border: 0.1rem #000000 solid;
+    background-color: #f8f8f8;
+    border-radius: 1rem;
+    margin: 1.8rem;
+    margin-top: 4rem;
+  }
+  
+  .card-body > * {
+    margin: 0.5rem;
+    color: #000000;
+    text-align: center;
+    
+  }
+
+  .price {
+    font-size: 2rem;
+  }
+  /* Rating */
+  .rating span {
+    color: #f0c040;
+    margin: 0.1rem;
+  }
+
+/* Common */
+h1 {
+    font-size: 1.8rem;
+    padding: 0rem 0;
+
+  }
+
+h4 {
+    font-size: 1.6rem;
+    padding: 0rem 0;
+  }
