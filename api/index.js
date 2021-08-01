@@ -25,6 +25,6 @@ const {getAddTypes} =require('./src/handlers/types.js')
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
-  server.listen(3001, getAddTypes);
+  server.listen(3001,  getAddTypes );
   console.log('%s listening at 3001'); // eslint-disable-line no-console
 });
