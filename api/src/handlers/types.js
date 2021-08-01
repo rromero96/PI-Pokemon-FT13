@@ -3,7 +3,11 @@ const axios = require ('axios');
 
 async function getAddTypes (req, res) {
     
-    const dbTypes =await Tipo.findAll();
+    const dbTypes =await Tipo.findAll({
+        attributes: {
+            exclude: ['createdAt', 'updatedAt','pokemon_tipo']
+        }
+    });
     if(dbTypes.length === 0) {
         try {
             const types = await axios('https://pokeapi.co/api/v2/type');
