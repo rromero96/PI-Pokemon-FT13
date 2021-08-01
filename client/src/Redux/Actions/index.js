@@ -20,6 +20,7 @@ export const getPokemons = () => async (dispatch) => {
   }
 };
 
+
 export const getPokemonDetail = (id) => async (dispatch) => {
   try {
     const res = await axios.get("http://localhost:3001/pokemons/" + id);
@@ -65,13 +66,20 @@ export const newPokemon = (pokemon) => async (dispatch) => {
 }; 
 
 
-export const filterPokemon = (types, array) => (dispatch) =>{
-  console.log(types);
-  const type1 = new RegExp(types);
-  const res = array.filter(c => c.types.match(type1));
+export const filterPokemon = (tipos, array) => (dispatch) =>{
+  console.log(tipos);
+  const type1 = new RegExp(tipos);              
+  const res = array.filter(c => c.tipos.match(type1));
   dispatch({type: FILTER_POKEMON, payload: [...res]})
 
 };
+
+
+/* export const filterPokemon = (tipos, array) => (dispatch) =>{
+  const tipos = tipos.map(tipo => tipo.name).join(' ')
+
+  dispatch({type: FILTER_POKEMON, payload: [...res]})
+}; */
 
 export const filterApi = (creator, array) => (dispatch) => {
   console.log(creator);
