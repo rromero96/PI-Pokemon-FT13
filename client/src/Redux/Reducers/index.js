@@ -5,6 +5,8 @@ import {
   GET_POKEMON_DETAIL,
   SEARCH_POKEMON,
   FILTER_POKEMON,
+  ORDER_POKEMON,
+  CREATOR_POKEMON
   } from "../Actions/actionTypes";
 
 const initialState = {
@@ -13,7 +15,9 @@ const initialState = {
     pokemonDetail: {},
     pokemonCreated:[],
     pokemonSearched: [],
-    pokemonFiltered: []
+    pokemonFiltered: [],
+    pokemonOrder:[],
+    pokemonCreator:[]
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -21,9 +25,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_POKEMONS:
             return {
                 ...state,
-                pokemonList: action.payload,  // si uso este los tengo que cargar desde el backend y solo quiero que cada uno vea lo que creo no otros
-                pokemonSearched: [],
-                pokemonFiltered: []
+                pokemonList: action.payload
             }
         case GET_POKEMON_DETAIL:
             return {
@@ -39,7 +41,7 @@ const rootReducer = (state = initialState, action) => {
         case SEARCH_POKEMON:
             return {
                 ...state,
-                pokemonSearched: [action.payload]
+                pokemonSearched: action.payload //[action.payload]
             }
         case CREATE_POKEMON:
             return {
@@ -50,7 +52,17 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemonFiltered: action.payload
-            }    
+            }  
+        case ORDER_POKEMON:
+            return {
+                ...state,
+                pokemonOrder: action.payload
+            }
+        case CREATOR_POKEMON:
+            return {
+                ...state,
+                pokemonCreator: action.payload
+            }             
         
         default:
             return state

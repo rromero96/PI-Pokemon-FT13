@@ -12,18 +12,21 @@ import { Link } from 'react-router-dom';
 export function Home() {
     const dispatch = useDispatch();
     const pokemonList = useSelector(state => state.pokemonList)
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonsPerPage] = useState(12);
+    const name = useSelector(state => state.pokemonSearched)
+    const type = useSelector(state => state.pokemonFiltered)
+    const order =useSelector(state => state.pokemonOrder)
+    const filter = useSelector(state => state.pokemonCreator)
+    /* const [currentPage, setCurrentPage] = useState(1);
+    const [pokemonsPerPage] = useState(12); */
     
     useEffect(() =>{
-        dispatch(getPokemons());
-
-    },[dispatch])
+        dispatch(getPokemons(name, type, order, filter));
+    },[dispatch, name, type, order, filter])
 
     
-      console.log(pokemonList);
+    
       
-      const indexOfLastPost = currentPage * pokemonsPerPage;
+      /* const indexOfLastPost = currentPage * pokemonsPerPage;
       const indexOfFirstPost = indexOfLastPost - pokemonsPerPage;
       const currentPokemons = pokemonList.slice(indexOfFirstPost, indexOfLastPost);
 
@@ -37,7 +40,7 @@ export function Home() {
       const prePage = () => {
           if(currentPage !== 1)  setCurrentPage(currentPage - 1);
           else setCurrentPage(pageNumber)
-      }
+      } */
 
     
 
@@ -50,7 +53,9 @@ export function Home() {
         </div>
         )
     } else { 
-        return  ( <div className="home">     
+        return  (
+            
+            <div className="home">     
             <div className="row center"> 
             {
             currentPokemons.map((pokemon, index)=> (
