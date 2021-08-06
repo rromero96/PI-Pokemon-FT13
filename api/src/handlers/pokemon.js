@@ -7,43 +7,56 @@ async function getApiPokemon (req, res,next) {
     const {name, type, order, filter } = req.query;
     //const validate = ['null', undefined, 'undefined', '']
     //if (validate.includes(name)) name = ''
-    //if (validate.includes(page)) page = 1
-    //if (validate.includes(orderBy)) orderBy = 'name'
-    //if (validate.includes(orderType)) orderType = 'asc'
-    //if (validate.includes(category)) category = ''
-    //if (descFilter === 'true' ) descFilter = true
-    //if (descFilter === 'false' || validate.includes(descFilter)) descFilter = false
-    try {
-        const pokemon1 = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=40');
-        const res1 = await Promise.all(pokemon1.data.results.map(async pokemon => {
-            let subRequest = await axios.get(pokemon.url)
-            return  {
-                name: subRequest.data.name,
-                image: subRequest.data.sprites.other.dream_world.front_default,
-                id: subRequest.data.id, 
-                tipos: subRequest.data.types.map(tipo => {
-                    return {name: tipo.type.name}
-                }),
-                attack: subRequest.data.stats[1].base_stat,
-            } 
-        }))
-        const pokedb = await Pokemon.findAll({
-            include: {                
-                    model: Tipo,
-                    through: {
-                        attributes: [],
-                    },
-                    attributes: ['name']
-                },
-            attributes: ['name', 'image', 'id','attack','created']    
-        })
-        const pokedb2 = pokedb.reverse();
-        var result = pokedb2.concat(res1);
-        var result1 = result;
-    } catch(error) {
-        return res.send('ERROR');
-    }
+    //if (validate.includes(type)) type = 1
+    //if (validate.includes(order)) order = ''
+    //if (validate.includes(filter)) filter = ''
+    var poke2 = await Pokemon.findAll();
+    if(!poke2.length){
+        try{
+        const pokemon1 = await axios.get('https://pokeapi.co/api/v2/pokemon?limit=100');
+                console.log(pokemon1);
+                const res1 = await Promise.all(pokemon1.data.results.map(async pokemon => {
+                    let subRequest = await axios.get(pokemon.url)
+                    
+                        var result = await Pokemon.create({ name: subRequest.data.name, id: subRequest.data.id, hp: subRequest.data.stats[0].base_stat, attack: subRequest.data.stats[1].base_stat, defense: subRequest.data.stats[2].base_stat, image: subRequest.data.sprites.other.dream_world.front_default, speed: subRequest.data.stats[5].base_stat, weight: subRequest.data.weight, height: subRequest.data.height, created: false})
+                        await result.addTipo(subRequest.data.types.map(tipo => {
+                            return tipo.type.name
+                        }))        
+                }))
+                console.log(res1)            
+                var pokeDB = await Pokemon.findAll({
+                    include: {                
+                            model: Tipo,
+                            through: {
+                                attributes: [],
+                            },
+                            attributes: ['name']
+                        },
+                    attributes: ['name', 'image', 'id','attack','created']    
+                })
+                var result = pokeDB
+        }catch(err){
+            next(err);
+        }
 
+    } else {
+        try{
+            var pokeDB = await Pokemon.findAll({
+                include: {                
+                        model: Tipo,
+                        through: {
+                            attributes: [],
+                        },
+                        attributes: ['name']
+                    },
+                attributes: ['name', 'image', 'id','attack','created']    
+            })
+            var result = pokeDB
+        }catch(err){
+            next(err);
+        }
+
+    }
     if(name) {
         var lower = req.query.name.toLowerCase();
         try {
@@ -73,55 +86,54 @@ async function getApiPokemon (req, res,next) {
                 return res.status(404).send({message: 'The pokemon you are looking for does not exist'})
             }
         }
-    } 
+       
+    } else {
+        if(type){
+        result = result.filter((poke) => {for(let i in poke.tipos){if (poke.tipos[i].name === type){return poke}}})
+        if(!result.length) return res.status(404).send({message: 'the type you requested does not exist'})
+        } 
+        if(order){
+            if(order === 'az'){
+            result = result.sort((a, b) => {
+                const first = a.name;
+                const last = b.name;
+                if(first < last ){
+                    return -1;
+                } 
+                if(first > last) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            })
+            }
+            if(order ==='za'){
+            result = result.sort((a, b) => {
+                const first = a.name;
+                const last = b.name;
+                if(first > last ){
+                    return -1;
+                } 
+                if(first < last) {
+                    return 1;
+                } else {
+                    return 0;
+                }
+            }) 
+            }
+           if(order === 'strongest') result = result.sort((a,b) => b.attack - a.attack)
+           if(order === 'weakest')result = result.sort((a,b) => a.attack - b.attack) 
+           if(order === 'null') result =result
+         }
+         if(filter){
+            if(filter === 'api') result = result.filter(c => c.created !== true)
+            if(filter === 'db') result = result.filter(c => c.created === true)
+            if(filter === 'all' || filter === 'null') result = result
+         }
+
+    }
     
-    if(type){
-    result = result.filter((poke) => {for(let i in poke.tipos){if (poke.tipos[i].name === type){return poke}}})
-    if(!result.length) return res.status(404).send({message: 'the type you requested does not exist'})
-    } 
-    if(order){
-        if(order === 'az'){
-        result = result.sort((a, b) => {
-            const first = a.name;
-            const last = b.name;
-            if(first < last ){
-                return -1;
-            } 
-            if(first > last) {
-                return 1;
-            } else {
-                return 0;
-            }
-        })
-        }
-        if(order ==='za'){
-        result = result.sort((a, b) => {
-            const first = a.name;
-            const last = b.name;
-            if(first > last ){
-                return -1;
-            } 
-            if(first < last) {
-                return 1;
-            } else {
-                return 0;
-            }
-        }) 
-        }
-       if(order === 'strongest') result = result.sort((a,b) => b.attack - a.attack)
-       if(order === 'weakest')result = result.sort((a,b) => a.attack - b.attack) 
-       if(order === 'null') result =result
-       if(result === result1) return res.status(404).send({message: 'the order you requested does not exist'})
-     }
-     if(filter){
-        if(filter === 'api') result = result.filter(c => c.created !== true)
-        if(filter === 'db') result = result.filter(c => c.created === true)
-        if(filter === 'all' || filter === 'null') result = result
-        if(result === result1) return res.status(404).send({message: 'the filter you requested does not exist'})
-     }
-
-
-
+     
     return res.send(result); 
 }
  

@@ -12,7 +12,7 @@ async function getAddTypes (req, res) {
         try {
             const types = await axios('https://pokeapi.co/api/v2/type');
             for(let i in types.data.results){
-                await Tipo.create({name: types.data.results[i].name});
+                await Tipo.create({name: types.data.results[i].name, id:types.data.results[i].name});
             }
               
          } catch(error) {
@@ -28,7 +28,4 @@ async function getAddTypes (req, res) {
 module.exports = {
     getAddTypes
 }
-
-
-
 

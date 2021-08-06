@@ -6,8 +6,9 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('pokemon', {  // ver si es sequelize o si es conn
     id:{
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
+      //type: DataTypes.UUID,
+      //defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       allowNull: true
     },
