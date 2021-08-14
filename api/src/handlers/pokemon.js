@@ -3,7 +3,78 @@ const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 
 
+const itemsPerPage = 12
+
+
 async function getApiPokemon (req, res,next) {
+    var {name, type, orderBy, orderType, filter, page } = req.query;
+    const validate = ['null', undefined, '']    
+    if (validate.includes(name)) name = false
+    if (validate.includes(type)) type = false
+    if (validate.includes(filter)) filter = '' 
+    if (validate.includes(page)) page = 1 
+    //if (validate.includes(orderBy)) orderBy = 'createdAt'
+    if (validate.includes(orderBy)) orderBy ='id'
+    //if (validate.includes(orderType)) orderType = 'DESC'
+    if (validate.includes(orderType)) orderType = 'ASC'
+    try{
+            var pokeDB = await Pokemon.findAll({
+                where: name? {name: name}: filter? {from: filter}: null,
+                include: {                
+                    model: Tipo,
+                    where: type ? {
+                        id: type
+                    } : null,
+                    through: {
+                        attributes: [],
+                    },
+                    attributes: ['name']
+                },
+                order:[[orderBy, orderType]], 
+                attributes: ['name', 'image', 'id','attack','created'],    
+                offset: (page - 1) * itemsPerPage,
+                limit: itemsPerPage,
+            })
+            if(pokeDB.length === 0){
+                var lower = req.query.name.toLowerCase();
+                try{
+                let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`);
+                var result = await Pokemon.create({ name: pokemon.data.name, id: pokemon.data.id, hp: pokemon.data.stats[0].base_stat, attack: pokemon.data.stats[1].base_stat, defense: pokemon.data.stats[2].base_stat, image: pokemon.data.sprites.other.dream_world.front_default, speed: pokemon.data.stats[5].base_stat, weight: pokemon.data.weight, height: pokemon.data.height, created: false})
+                await result.addTipo(pokemon.data.types.map(tipo => {
+                    return tipo.type.name
+                }))
+                var pokeDB = await Pokemon.findAll({
+                    where: name? {name: name}: filter? {created: filter}: null,
+                    include: {                
+                        model: Tipo,
+                        where: type ? {
+                            id: type
+                        } : null,
+                        through: {
+                            attributes: [],
+                        },
+                        attributes: ['name']
+                    },
+                    order:[[orderBy, orderType]], 
+                    attributes: ['name', 'image', 'id','attack','created'],    
+                    offset: (page - 1) * itemsPerPage,
+                    limit: itemsPerPage,
+                }) 
+                }catch(error){
+                    next(error);
+                }
+            }
+            return res.json(pokeDB); 
+            //return res.json({totalPage: Math.ceil(pokeDB.length / itemsPerPage), pokeDB}); 
+        }catch(err){
+            next(err);
+        }
+
+
+}
+
+
+/* async function getApiPokemon (req, res,next) {
     const {name, type, order, filter } = req.query;
     //const validate = ['null', undefined, 'undefined', '']
     //if (validate.includes(name)) name = ''
@@ -135,7 +206,7 @@ async function getApiPokemon (req, res,next) {
     
      
     return res.send(result); 
-}
+} */
  
  
  

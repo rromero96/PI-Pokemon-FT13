@@ -7,10 +7,8 @@ module.exports = (sequelize) => {
   sequelize.define('pokemon', {  // ver si es sequelize o si es conn
     id:{
       type: DataTypes.STRING,
-      //type: DataTypes.UUID,
-      //defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
-      allowNull: true
+      allowNull: false
     },
     name: {
       type: DataTypes.STRING,
@@ -39,9 +37,8 @@ module.exports = (sequelize) => {
     },
     created:{
       type: DataTypes.BOOLEAN, defaultValue:true
-    }
+    },
   });
 };
-
 
 

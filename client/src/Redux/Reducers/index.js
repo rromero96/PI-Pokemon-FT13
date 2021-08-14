@@ -25,7 +25,7 @@ const rootReducer = (state = initialState, action) => {
         case GET_POKEMONS:
             return {
                 ...state,
-                pokemonList: action.payload
+                pokemonList: Array.isArray(action.payload) ? action.payload : [action.payload]
             }
         case GET_POKEMON_DETAIL:
             return {
@@ -46,7 +46,8 @@ const rootReducer = (state = initialState, action) => {
         case CREATE_POKEMON:
             return {
                 ...state,
-                pokemonCreated: state.pokemonCreated.concat(action.payload)
+                pokemonCreated: state.pokemonCreated.concat(action.payload),
+                //pokemonList: []
             }  
         case FILTER_POKEMON:
             return {
