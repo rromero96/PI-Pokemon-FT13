@@ -6,6 +6,7 @@ import { LandingPage } from './components/screens/LandingPage/LadingPage';
 import { Home } from './components/screens/Home/Home.js';
 import { PokemonDetail } from './components/screens/PokemonDetail/PokemonDetail';
 import { NewPokemon } from './components/screens/NewPokemon/NewPokemon';
+import { About } from './components/screens/About/About';
 import { Navbar }  from './components/component/Navbar/Navbar';
 
 
@@ -18,6 +19,7 @@ function App() {
       <Route path='/pokeDetail/:id' component={Navbar} />
       <Route exact path='/' component={LandingPage} />
       <Route exact path='/home' component={Home} />
+      <Route exact path='/home/about' component={About} />
       <Route path='/pokeDetail/:id' component={PokemonDetail} />
       <Route path='/newPoke' component={NewPokemon} />
     </React.Fragment>

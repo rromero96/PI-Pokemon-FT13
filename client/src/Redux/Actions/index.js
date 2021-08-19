@@ -7,29 +7,21 @@ import {
   SEARCH_POKEMON,
   FILTER_POKEMON,
   ORDER_POKEMON,
-  CREATOR_POKEMON
+  CREATOR_POKEMON,
+  SET_PAGE
 } from "./actionTypes";
 
 
 
 
-export const getPokemons = (name, type, order, filter) => async (dispatch) => {
+export const getPokemons = (name, type, orderBy, orderType, filter, page) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:3001/pokemons?name=${name}&type=${type}&order=${order}&filter=${filter}`);
+    const res = await axios.get(`http://localhost:3001/pokemons?name=${name}&type=${type}&orderBy=${orderBy}&orderType=${orderType}&filter=${filter}&page=${page}`);
     dispatch({type: GET_POKEMONS , payload: res.data});
   } catch (err) {
     console.log(err);
   }
 };
-
-/* export function getAllProducts(name, page, orderBy, orderType, category, descFilter) {
-  return async function (dispatch) {
-    var json = await axios(
-      `${url}/products?page=${page}&name=${name}&orderBy=${orderBy}&orderType=${orderType}&category=${category}&descFilter=${descFilter}`
-    );
-    return dispatch({ type: GET_ALL_PRODUCTS, payload: json.data });
-  };
-}; */
 
 
 export const getPokemonDetail = (id) => async (dispatch) => {
@@ -74,9 +66,10 @@ export const searchPokemon = (name) => {
 } 
 
 
-export const orderPokemon = (order) => {
+export const orderPokemon = (orderActual) => {
+  const or = orderActual.split(" ");
   return (dispatch) => {
-    dispatch({ type: ORDER_POKEMON, payload: order });
+    dispatch({ type: ORDER_POKEMON, payload: or });
   };
 };
 
@@ -94,6 +87,12 @@ export const filterPokemonCreator = (filter)  =>{
   };
 
 }
+
+export const setPage = (page) => {
+  return (dispatch) => {
+    dispatch({ type: SET_PAGE, payload: page });
+  };
+};
 
 
 

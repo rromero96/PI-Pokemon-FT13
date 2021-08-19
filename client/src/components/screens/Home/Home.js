@@ -1,7 +1,7 @@
 import './Home.css'
 import React, {useEffect, useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {getPokemons} from '../../../Redux/Actions/index.js'
+import {getPokemons, setPage} from '../../../Redux/Actions/index.js'
 import Pokemon from '../../component/Pokemon/Pokemon'
 import { Link } from 'react-router-dom';
 import {Filter} from '../../component/Filter/Filter'
@@ -14,41 +14,38 @@ export function Home() {
     const dispatch = useDispatch();
     const pokemonList = useSelector(state => state.pokemonList)
     const name = useSelector(state => state.pokemonSearched)
+    const page = useSelector(state => state.actualPage);
     const type = useSelector(state => state.pokemonFiltered)
-    const order =useSelector(state => state.pokemonOrder)
+    const orderBy =useSelector(state => state.orderBy)
+    const orderType =useSelector(state => state.orderType)
     const filter = useSelector(state => state.pokemonCreator)
+    let totalPages = useSelector((state) => state.totalPages);
+    totalPages = Math.ceil(totalPages);
 
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonsPerPage] = useState(12); 
+  
     
     useEffect(() =>{
-        dispatch(getPokemons(name, type, order, filter));
-    },[dispatch, name, type, order, filter])
+        dispatch(getPokemons(name, type, orderBy, orderType, filter, page));
+    },[dispatch, name, type, orderBy, orderType, filter, page])
 
 
       
-    /* const indexOfLastPost = currentPage * pokemonsPerPage;
-    const indexOfFirstPost = indexOfLastPost - pokemonsPerPage;
-    const currentPokemons = pokemonList.slice(indexOfFirstPost, indexOfLastPost);
 
-    const pageNumber = Math.ceil(pokemonList.length / pokemonsPerPage);
-
-    const nextPage = () => {
-        if(currentPage < pageNumber) setCurrentPage(currentPage + 1);
-        else setCurrentPage(1)
-    }
-
-    const prePage = () => {
-        if(currentPage !== 1)  setCurrentPage(currentPage - 1);
-        else setCurrentPage(pageNumber)
-    } */
+    const prevPage = (e) => {
+        e.preventDefault();
+        dispatch(setPage(page - 1));
+    };
+    const nextPage = (e) => {
+        e.preventDefault();
+        dispatch(setPage(page + 1));
+      }
       
  
     
 
    
     //if (!pokemonList.length /* && pokemonList.length !== 0 */) {
-     if(pokemonList.length < 2 && pokemonList.length !==1) {
+     if(pokemonList.length <1 && pokemonList.length > 0  && pokemonList.length !==1) {
     return (
         <div className='loading'>
             <h1>LOADING</h1>
@@ -56,14 +53,15 @@ export function Home() {
         </div>
         )
     } 
-    if(pokemonList.length ===0){
+    if(!pokemonList.length){
         return (
             <div className='notFound'>
             <h1>Pokemon NOT FOUND!!</h1>
             <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif' alt='pokemon img'/>
         </div>
         )
-    }else { 
+    }
+    else { 
         return  (
             <div className="home">     
             <div className="row center"> 
@@ -76,8 +74,8 @@ export function Home() {
         )) 
         }
         </div>
-            <button /* onClick={() => {prePage()}} */>Previous</button>
-            <button /* onClick={() => {nextPage()}} */>Next</button>
+            <button className='prev' disabled={page === 1 ? true : false} onClick={prevPage}>{'Previous'}</button>
+            <button className='next' disabled={page === totalPages ? true : false} onClick={nextPage}>{'Next'}</button>
         </div>
         )
 

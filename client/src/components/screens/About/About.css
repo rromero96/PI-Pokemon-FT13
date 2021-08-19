@@ -1,0 +1,62 @@
+h1 {
+    text-align: center;
+
+}
+
+.div_padre_10{
+    display: -webkit-flex; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+    align-content: center;
+    flex-direction: column;
+}
+
+.dev_container{
+    margin-top: 1.5rem;
+    display: -webkit-flex; 
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100rem;
+    align-content: center;
+}
+
+.dev_individual{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.dev_individual img{
+    box-shadow: 0 0 10px 0 black;
+    border-radius: 300px;
+}
+
+.div_nombre{
+    align-items: center;
+    justify-content: center;
+    display: table-row;
+    font-size: 2rem;
+    margin-top: -2rem;
+    text-align: center;
+    font-family: 'Staatliches';
+}
+
+.div_container_links{
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width:8rem;
+    display: flex;
+    margin-top: -1rem;
+    transition: 0.3s;
+}
+
+.div_container_links a:hover{
+    transition: 0.3s;
+    transform: translateY(-3px);
+}

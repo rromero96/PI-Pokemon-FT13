@@ -9,21 +9,21 @@ export function Filter() {
     const pokemonFiltered = useSelector(state => state.pokemonFiltered)
     const pokemonTypes = useSelector(state => state.pokemonTypes)
     const pokemonList = useSelector(state => state.pokemonList);
+    const orderBy = useSelector(state => state.orderBy)
+    const orderType = useSelector(state => state.orderType)
+    const orderActual = orderBy + ' ' + orderType
 
 
       function filter(e) {
-        //dispatch(filterPokemon(e.target.value, pokemonList))
         dispatch(filterPokemon(e.target.value))
 
       }
 
       function filtApi(e) {
-        //dispatch(filterApi(e.target.value, pokemonList))
         dispatch(filterPokemonCreator(e.target.value))
       }
 
-      function ordApi(e) {
-        //dispatch(orderApi(e.target.value, pokemonList))
+      function ordApiName(e) {
         dispatch(orderPokemon(e.target.value))
       }
 
@@ -34,29 +34,34 @@ export function Filter() {
           <div className="filter1">
              <span > By Type:</span>
                 <select className="type" name="type"  onChange={filter} >
-                    <option value='null'>Select</option>
+                    <option value=''>Select</option>
                     {pokemonTypes && pokemonTypes.map((c, index) => (
                     <option value={c.name} key={index} name="c.name">{c.name}</option>
                     ))}
                 </select>  
             <span> By Creator:</span>
             <select className="type" name="type" onChange={filtApi} >
-                    <option value="null">Select</option>
-                    <option value="all">All</option>
-                    <option value="api">Api Poke</option>
-                    <option value="db">Created Poke</option>
+                    <option value="">Select</option>
+                    <option value="">All</option>
+                    <option value="false">Api Poke</option>
+                    <option value="true">Created Poke</option>
             </select>        
             <span>Order By:</span>
-                <select className="type" name="type" key='order' onChange={ordApi} >
-                    <option value="null">Select</option>
-                    <option value="az" name='az'>A - Z</option>
-                    <option value="za" name='za'>Z - A</option>
-                    <option value="strongest" name='null'>Attack +</option>
-                    <option value="weakest" name='null'>Attack -</option>                    
+                <select className="type" name="type" value={orderActual} key='order'  onChange={ordApiName} >
+                    <option key={1} value="    " >Select</option>
+                    <option key={2} value={'name ASC'} name='az' >A - Z</option>
+                    <option key={3} value={'name DESC'} name='za'>Z - A</option>
+                    <option key={4} value={'attack ASC'} name='att+'>Attack +</option>
+                    <option key={5} value={'attack DESC'} name='att-'>Attack -</option>                    
                 </select>  
                 </div>        
         </div>
     )
 }
+
+
+
+
+
 
 
