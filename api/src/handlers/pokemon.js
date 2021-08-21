@@ -2,162 +2,127 @@ const {Pokemon, Tipo} = require('../db.js');
 const { v4: uuidv4 } = require('uuid');
 const axios = require('axios');
 
- async function getApiPokemon (req, res) {
-    let type;
-    if(req.query.name) {
-        var lower = req.query.name.toLowerCase();
-        try {
-            let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`); 
-            if(pokemon.data.types.length === 1) {
-                type = pokemon.data.types[0].type.name;
-            } else {
-                type = pokemon.data.types[0].type.name + " " + pokemon.data.types[1].type.name;
-            }
-            console.log(type);
-            var obj = {
-                name: pokemon.data.name.charAt(0).toUpperCase() + pokemon.data.name.slice(1),
-                id: pokemon.data.id,
-                image: pokemon.data.sprites.other.dream_world.front_default,
-                types: type,
-                height: pokemon.data.height,
-                weight: pokemon.data.weight,
-                hp: pokemon.data.stats[0].base_stat,
-                attack: pokemon.data.stats[1].base_stat,
-                defense: pokemon.data.stats[2].base_stat,
-                speed: pokemon.data.stats[5].base_stat
-            } 
-        } catch (error) {
-            const pokemonDb = await Pokemon.findOne({
-                where:{
-                    name: lower
-                },
-                include: Tipo
-            })
-            if(!pokemonDb) {
-                return res.status(404).send({message: 'Bad Request'})
-            }
-            if(pokemonDb.tipos.length === 1) {
-                type = pokemonDb.tipos[0].name;
-            } else {
-                type = pokemonDb.tipos[0].name + " " + pokemonDb.tipos[1].name;
-            }
-            var finalPokemon ={
-                name : pokemonDb.name.charAt(0).toUpperCase() + pokemonDb.name.slice(1),
-                id: pokemonDb.id,
-                types: type,
-                height: pokemonDb.height,
-                weight: pokemonDb.weight,
-                image: "https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png",
-                hp: pokemonDb.hp,
-                attack: pokemonDb.attack,
-                defense: pokemonDb.defense,
-                speed: pokemonDb.speed
 
-            } 
-            return res.send(finalPokemon);
-            
-        }
-        return res.send(obj);
+const itemsPerPage = 12
 
-    } else {
-        try {
-            const pokemon = await axios.get('https://pokeapi.co/api/v2/pokemon');
-            const pokemon2 = await axios.get(pokemon.data.next);
-            const poke2= pokemon.data.results.concat(pokemon2.data.results);
-            const res1 = await Promise.all(poke2.map(async pokemon => {
-                let subRequest = await axios.get(pokemon.url)
-                if(subRequest.data.types.length === 1) {
-                    type = subRequest.data.types[0].type.name;
-                } else {
-                    type = subRequest.data.types[0].type.name + " " + subRequest.data.types[1].type.name
-                }
-                return  {
-                    name: subRequest.data.name.charAt(0).toUpperCase() + subRequest.data.name.slice(1),
-                    image: subRequest.data.sprites.other.dream_world.front_default,
-                    id: subRequest.data.id, 
-                    types: type
-                }
-                
-            }))
-            const pokedb = await Pokemon.findAll({
-                include: {
-                    attributes: ['name'],
+
+async function getApiPokemon (req, res,next) {
+    var {name, type, orderBy, orderType, filter, page } = req.query;
+    const validate = ['null', undefined, '', 'undefined', ""]    
+    if (validate.includes(name)) name = false
+    if (validate.includes(type)) type = false
+    if (validate.includes(filter)) filter = '' 
+    if (validate.includes(page)) page = 1 
+    if (validate.includes(orderBy)) orderBy = 'createdAt'
+    //if (validate.includes(orderBy)) orderBy ='id'
+    if (validate.includes(orderType)) orderType = 'DESC'
+    //if (validate.includes(orderType)) orderType = 'ASC'
+    const count = await Pokemon.findAll({
+        where: name? {name: name}: filter? {created: filter}: null,
+        include: {                
+            model: Tipo,
+            where: type ? {
+                id: type
+            } : null,
+            through: {
+                attributes: [],
+            },
+            attributes: ['name']
+        },
+    })
+    try{
+            var pokeDB = await Pokemon.findAll({
+                where: name? {name: name}: filter? {created: filter}: null,
+                include: {                
                     model: Tipo,
+                    where: type ? {
+                        id: type
+                    } : null,
                     through: {
                         attributes: [],
-                    }
-                }
+                    },
+                    attributes: ['name']
+                },
+                order:[[orderBy, orderType]], 
+                attributes: ['name', 'image', 'id','attack','created','createdAt'],    
+                offset: (page - 1) * itemsPerPage,
+                limit: itemsPerPage,
             })
-            const pokedb2 = pokedb.reverse().map(result => {
-                if(result.tipos.length === 1) {
-                    type = result.tipos[0].name;
-                } else {
-                    type = result.tipos[0].name + " " + result.tipos[1].name;
+            if(pokeDB.length === 0){
+                var lower = req.query.name ? req.query.name.toLowerCase() : null;
+                try{
+                let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${lower}`);
+                var result = await Pokemon.create({ name: pokemon.data.name, id: pokemon.data.id, hp: pokemon.data.stats[0].base_stat, attack: pokemon.data.stats[1].base_stat, defense: pokemon.data.stats[2].base_stat, image: pokemon.data.sprites.other.dream_world.front_default, speed: pokemon.data.stats[5].base_stat, weight: pokemon.data.weight, height: pokemon.data.height, created: false})
+                await result.addTipo(pokemon.data.types.map(tipo => {
+                    return tipo.type.name
+                }))
+                var pokeDB = await Pokemon.findAll({
+                    where: name? {name: name}: filter? {created: filter}: null,
+                    include: {                
+                        model: Tipo,
+                        where: type ? {
+                            id: type
+                        } : null,
+                        through: {
+                            attributes: [],
+                        },
+                        attributes: ['name']
+                    },
+                    order:[[orderBy, orderType]], 
+                    attributes: ['name', 'image', 'id','attack','created','createdAt'],    
+                    offset: (page - 1) * itemsPerPage,
+                    limit: itemsPerPage,
+                }) 
+                }catch(error){
+                    next(error);
                 }
-                return {
-                    name: result.name.charAt(0).toUpperCase() + result.name.slice(1),
-                    image: "https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png",
-                    id: result.id,
-                    types: type,
-                }
-
-            })
-            var result = pokedb2.concat(res1);
-        } catch(error) {
-            return res.send('ERROR');
+            }      
+            return res.json({totalPage: Math.ceil(count.length / itemsPerPage), pokeDB}); 
+        }catch(err){
+            next(err);
         }
-    return res.send(result); 
-    }
-} 
+
+
+}
+
+
  
 
 async function getIdPokemon (req, res){
-    let type;
     if(req.params.idPokemon.length > 20) {
         try{
-            var pokemonDb = await Pokemon.findOne({
+            var finalPokemon = await Pokemon.findOne({
                 where:{
-                    id: req.params.idPokemon
+                    id: req.params.idPokemon},
+                include: {
+                    model: Tipo,
+                    attributes: {
+                        include: ['id', 'name'],
+                        exclude: ['createdAt', 'updatedAt','pokemon_tipo']
+                    },
+                    through: {
+                        attributes: []
+                    }
                 },
-                include: Tipo
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt','pokemon_tipo']
+                }
             })
-            if(pokemonDb.tipos.length === 1) {
-                type = pokemonDb.tipos[0].name;
-            } else {
-                type = pokemonDb.tipos[0].name + " " + pokemonDb.tipos[1].name;
-            }
-            var finalPokemon ={
-                name : pokemonDb.name.charAt(0).toUpperCase() + pokemonDb.name.slice(1),
-                id: pokemonDb.id,
-                types: type,
-                height: pokemonDb.height,
-                weight: pokemonDb.weight,
-                hp: pokemonDb.hp,
-                attack: pokemonDb.attack,
-                defense: pokemonDb.defense,
-                speed: pokemonDb.speed
-            } 
 
         }catch (error){
-            console.log(finalPokemon);
-            return res.status(404).send({message: 'Bad Request'})
+            return res.send({message: 'Bad Request'})
         }
         return res.send(finalPokemon);
     } else {
         try{
             let pokemon = await axios.get(`https://pokeapi.co/api/v2/pokemon/${req.params.idPokemon}`);
-            if(pokemon.data.types.length === 1) {
-                type = pokemon.data.types[0].type.name;
-            } else {
-                type = pokemon.data.types[0].type.name + " " + pokemon.data.types[1].type.name;
-            }
-            console.log(type);
-    
             var obj = {
-                name: pokemon.data.name.charAt(0).toUpperCase() + pokemon.data.name.slice(1),
+                name: pokemon.data.name,
                 id: pokemon.data.id,
                 image: pokemon.data.sprites.other.dream_world.front_default,
-                types: type,
+                tipos: pokemon.data.types.map(tipo => {
+                    return {name: tipo.type.name}
+                }),
                 height: pokemon.data.height,
                 weight: pokemon.data.weight,
                 hp: pokemon.data.stats[0].base_stat,
@@ -175,7 +140,6 @@ async function getIdPokemon (req, res){
 
 
 async function addPokemon (req, res, next) {
-    let type;
     const id = uuidv4();
     const pokemon = {...req.body, id};
     if(!req.body.name) {
@@ -191,15 +155,25 @@ async function addPokemon (req, res, next) {
             where: {
                 name: req.body.name
             },
-            include: Tipo
-        });
+            include: {
+                model: Tipo,
+                attributes: {
+                    include: ['name'],
+                    exclude: ['createdAt', 'updatedAt','product_categories']
+                },
+                through: {
+                    attributes: []
+                }
+            },
+            attributes: {
+                exclude: ['createdAt', 'updatedAt','product_categories']
+            }})
         return res.send(result);
     } catch(error) {
         next(error);
     }
 
 }
-
 
 
 module.exports = {

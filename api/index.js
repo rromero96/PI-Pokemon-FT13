@@ -20,11 +20,22 @@
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
 const {getAddTypes} =require('./src/handlers/types.js')
+const {getAddPokemons} =require('./src/handlers/types.js')
 
 
 
 // Syncing all the models at once.
-conn.sync({ force: true }).then(() => {
-  server.listen(3001, getAddTypes);
+/* conn.sync({ force: true }).then(() => {
+  server.listen(3001,  getAddTypes );
   console.log('%s listening at 3001'); // eslint-disable-line no-console
-});
+}); */
+
+var force =true;
+conn.sync({force}).then(() =>
+server.listen(3001)
+)
+.then(async () => force ? await getAddTypes() : null)
+.then(async () => force ? await getAddPokemons() : null)
+.then(() => force ? console.log('Pokemons y tipos precargados en la base de datos') : null)
+.then(() => console.log('funciona en el 3001'))
+.catch(err => console.log(err))

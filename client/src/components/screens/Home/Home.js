@@ -1,9 +1,10 @@
 import './Home.css'
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-import {getPokemons} from '../../../Redux/Actions/index.js'
+import {getPokemons, setPage} from '../../../Redux/Actions/index.js'
 import Pokemon from '../../component/Pokemon/Pokemon'
 import { Link } from 'react-router-dom';
+import {Filter} from '../../component/Filter/Filter'
 
 
 
@@ -12,57 +13,70 @@ import { Link } from 'react-router-dom';
 export function Home() {
     const dispatch = useDispatch();
     const pokemonList = useSelector(state => state.pokemonList)
-    const [currentPage, setCurrentPage] = useState(1);
-    const [pokemonsPerPage] = useState(12);
+    const name = useSelector(state => state.pokemonSearched)
+    const page = useSelector(state => state.actualPage);
+    const type = useSelector(state => state.pokemonFiltered)
+    const orderBy =useSelector(state => state.orderBy)
+    const orderType =useSelector(state => state.orderType)
+    const filter = useSelector(state => state.pokemonCreator)
+    let totalPages = useSelector((state) => state.totalPages);
+    totalPages = Math.ceil(totalPages);
+
+  
     
     useEffect(() =>{
-        dispatch(getPokemons());
+        dispatch(getPokemons(name, type, orderBy, orderType, filter, page));
+    },[dispatch, name, type, orderBy, orderType, filter, page])
 
-    },[dispatch])
 
-    
-      console.log(pokemonList);
       
-      const indexOfLastPost = currentPage * pokemonsPerPage;
-      const indexOfFirstPost = indexOfLastPost - pokemonsPerPage;
-      const currentPokemons = pokemonList.slice(indexOfFirstPost, indexOfLastPost);
 
-      const pageNumber = Math.ceil(pokemonList.length / pokemonsPerPage);
-
-      const nextPage = () => {
-          if(currentPage < pageNumber) setCurrentPage(currentPage + 1);
-          else setCurrentPage(1)
+    const prevPage = (e) => {
+        e.preventDefault();
+        dispatch(setPage(page - 1));
+    };
+    const nextPage = (e) => {
+        e.preventDefault();
+        dispatch(setPage(page + 1));
       }
-
-      const prePage = () => {
-          if(currentPage !== 1)  setCurrentPage(currentPage - 1);
-          else setCurrentPage(pageNumber)
-      }
-
-    
-
-   
-    if (pokemonList.length < 12) {
+      
+ 
+     if(pokemonList.length <1 && pokemonList.length > 0  && pokemonList.length !==1) {
     return (
         <div className='loading'>
             <h1>LOADING</h1>
-            <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
+            <img src='client/src/images/Spinner-1s-204px.gif' alt='pokemon img'/>
         </div>
         )
-    } else { 
-        return  ( <div className="home">     
-            <div className="row center"> 
+    } 
+    if(!pokemonList.length){
+        return (
+            <div className='notFound'>
+            <h1>Pokemon NOT FOUND!!</h1>
+            <img src='https://media.giphy.com/media/yuI7fL5cR1YeA/giphy.gif' alt='pokemon img'/>
+        </div>
+        )
+    }
+    else { 
+        return  (
+            <div className="home">     
+            <Filter className="filter"/>
+            <div className="row-center-home"> 
             {
-            currentPokemons.map((pokemon, index)=> (
-                <Link to={`/pokeDetail/${pokemon.id}`} style={{ textDecoration: 'none', color: 'black' }}>
-            <Pokemon key={index} pokemon={pokemon}></Pokemon>
+            pokemonList.map((pokemon, index)=> (
+                <Link to={`/pokeDetail/${pokemon.id}`} style={{ textDecoration: 'none', color: 'black' }} key={index}>
+            <Pokemon pokemon={pokemon}></Pokemon>
                 </Link> 
         )) 
         }
         </div>
-            <button onClick={() => {prePage()}}>Previous</button>
-            <button onClick={() => {nextPage()}}>Next</button>
-        </div>)
+        <div className="paginate">
+            <button  disabled={page === 1 ? true : false} onClick={prevPage}>{'Previous'}</button>
+            <button  disabled={page === totalPages ? true : false} onClick={nextPage}>{'Next'}</button>
+
+        </div>
+        </div>
+        )
 
     }            
 }

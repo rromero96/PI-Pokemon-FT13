@@ -6,10 +6,9 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('pokemon', {  // ver si es sequelize o si es conn
     id:{
-      type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4,
+      type: DataTypes.STRING,
       primaryKey: true,
-      allowNull: true
+      allowNull: false
     },
     name: {
       type: DataTypes.STRING,
@@ -24,6 +23,10 @@ module.exports = (sequelize) => {
     defense:{
       type: DataTypes.INTEGER
     },
+    image:{
+      //type: DataTypes.STRING, defaultValue:"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"
+      type: DataTypes.STRING, defaultValue:"https://i.ibb.co/yBtK4XG/pokeball.png"
+    },
     speed:{
       type: DataTypes.INTEGER
     },
@@ -32,9 +35,11 @@ module.exports = (sequelize) => {
     },
     weight:{
       type: DataTypes.INTEGER
-    }
+    },
+    created:{
+      type: DataTypes.BOOLEAN, defaultValue:true
+    },
   });
 };
-
 
 

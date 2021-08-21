@@ -34,7 +34,8 @@ img.medium {
 
 .bigcard {
     border: 0.1rem #000000 solid;
-    background-color: #f8f8f8;
+    background-color: rgba(255, 255, 255, 0.7);
+    box-shadow: 3px 3px 16px rgb(20 20 20 / 80%); 
     border-radius: 1rem;
     margin: 1.8rem;
     text-decoration: none;
@@ -107,8 +108,9 @@ img.medium {
  flex-direction: column;
  justify-content:center;
  align-items:center; 
- margin-top:20px;
 }
+
+
 
 .notFound img {
    zoom:3;

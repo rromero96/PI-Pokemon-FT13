@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getPokemonDetail, clearPokemonDetail } from '../../../Redux/Actions/index.js'
 import React from 'react'
 import './PokemonDetail.css'
+import logo from './../../../images/loadings.gif'
 
 export function PokemonDetail() {
     
@@ -33,15 +34,15 @@ export function PokemonDetail() {
             return (
                 <div className='loading'>
                      <h1>LOADING</h1>
-                    <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
+                    <img src={logo} alt='pokemon img'/>
                 </div>
                 )
             } else { 
                 return  (<div className="detail">
                 <div key={pokemonDetail.id} className="bigcard">
-                    <img className="large" src={pokemonDetail.image ? pokemonDetail.image :"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"} alt={pokemonDetail.name} /> 
+                    <img className="large" src={pokemonDetail.image} alt={pokemonDetail.name} /> 
                         <div className="card-body1">
-                            <h2>Name: {pokemonDetail.name}</h2>
+                            <h2>Name: {pokemonDetail.name ? pokemonDetail.name.charAt(0).toUpperCase() + pokemonDetail.name.slice(1) : null}</h2> 
                             <h4>ID: {pokemonDetail.id}</h4>
                             <h4>Heigth: {pokemonDetail.height}</h4>
                             <h4>Weigth: {pokemonDetail.weight}</h4>
@@ -49,7 +50,7 @@ export function PokemonDetail() {
                             <h4>Attack: {pokemonDetail.attack}</h4>
                             <h4>Defense: {pokemonDetail.defense}</h4>
                             <h4>Speed: {pokemonDetail.speed}</h4>
-                            <h4>Types: {pokemonDetail.types}</h4>
+                            <h4>Types: {pokemonDetail.tipos && pokemonDetail.tipos.length !== 1 ? pokemonDetail.tipos[0].name + ' ' + pokemonDetail.tipos[1].name : pokemonDetail.tipos && pokemonDetail.tipos.length === 1 ? pokemonDetail.tipos[0].name : null}</h4>
                         </div>
                 </div>
             </div>)

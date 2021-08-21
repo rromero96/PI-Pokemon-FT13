@@ -6,16 +6,14 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('tipo', {
     id:{
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+      type: DataTypes.STRING,
+      unique: true,
       primaryKey: true,
     },
     name:{
       type: DataTypes.STRING,
       allowNull: false
     }
-
-
   })
 };
 

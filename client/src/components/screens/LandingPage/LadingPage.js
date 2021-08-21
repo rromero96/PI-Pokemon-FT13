@@ -4,6 +4,7 @@ import {useDispatch} from 'react-redux'
 import {getTypes} from '../../../Redux/Actions/index.js'
 import { NavLink } from 'react-router-dom';
 
+
 export function LandingPage(){
     const dispatch = useDispatch();
     useEffect(() =>{
@@ -20,4 +21,5 @@ export function LandingPage(){
         </div>
     )
 }
+ 
 

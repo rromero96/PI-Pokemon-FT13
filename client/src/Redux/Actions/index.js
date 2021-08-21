@@ -6,19 +6,23 @@ import {
   GET_POKEMON_DETAIL,
   SEARCH_POKEMON,
   FILTER_POKEMON,
+  ORDER_POKEMON,
+  CREATOR_POKEMON,
+  SET_PAGE
 } from "./actionTypes";
 
 
 
 
-export const getPokemons = () => async (dispatch) => {
+export const getPokemons = (name, type, orderBy, orderType, filter, page) => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:3001/pokemons");
+    const res = await axios.get(`http://localhost:3001/pokemons?name=${name}&type=${type}&orderBy=${orderBy}&orderType=${orderType}&filter=${filter}&page=${page}`);
     dispatch({type: GET_POKEMONS , payload: res.data});
   } catch (err) {
     console.log(err);
   }
 };
+
 
 export const getPokemonDetail = (id) => async (dispatch) => {
   try {
@@ -36,6 +40,14 @@ export const clearPokemonDetail = () => {
     type: GET_POKEMON_DETAIL , payload: undefined
   }
 }
+export const newPokemon = (pokemon) => async (dispatch) => {
+  try {
+    const res = await axios.post("http://localhost:3001/pokemons", pokemon);
+    dispatch({type: CREATE_POKEMON , payload: res.data}, alert("POKEMON CREATED OK"));
+  } catch (err) {
+    alert("ERROR Pokemon not Created");
+  }
+}; 
 
 export const getTypes = () => async (dispatch) => {
   try {
@@ -46,97 +58,42 @@ export const getTypes = () => async (dispatch) => {
   }
 };
 
- export const searchPokemon = (name) => async (dispatch) => {
-  try {
-    const res = await axios.get("http://localhost:3001/pokemons?name=" + name);
-    dispatch({type: SEARCH_POKEMON , payload: res.data});
-  } catch (err) {
-    /* dispatch({type: SEARCH_POKEMON , payload: null}); */
-  }
+
+export const searchPokemon = (name) => {
+  return (dispatch) => {
+    dispatch({ type: SEARCH_POKEMON, payload: name });
+  };
+} 
+
+
+export const orderPokemon = (orderActual) => {
+  const or = orderActual.split(" ");
+  return (dispatch) => {
+    dispatch({ type: ORDER_POKEMON, payload: or });
+  };
 };
 
-export const newPokemon = (pokemon) => async (dispatch) => {
-  try {
-    const res = await axios.post("http://localhost:3001/pokemons", pokemon);
-    dispatch({type: CREATE_POKEMON , payload: res.data}, alert("POKEMON CREATED OK"));
-  } catch (err) {
-    alert("ERROR Pokemon not Created");
-  }
-}; 
 
+export const filterPokemon = (type)  =>{
+  return (dispatch) => {
+    dispatch({ type: FILTER_POKEMON, payload: type });
+  };
 
-export const filterPokemon = (types, array) => (dispatch) =>{
-  console.log(types);
-  const type1 = new RegExp(types);
-  const res = array.filter(c => c.types.match(type1));
-  dispatch({type: FILTER_POKEMON, payload: [...res]})
+}
 
+export const filterPokemonCreator = (filter)  =>{
+  return (dispatch) => {
+    dispatch({ type: CREATOR_POKEMON, payload: filter });
+  };
+
+}
+
+export const setPage = (page) => {
+  return (dispatch) => {
+    dispatch({ type: SET_PAGE, payload: page });
+  };
 };
 
-export const filterApi = (creator, array) => (dispatch) => {
-  console.log(creator);
-  if(creator === 'api') {
-   const res = array.filter(c  =>typeof c.id === 'number')
-   dispatch({type: FILTER_POKEMON, payload: [...res]})
-  }
-  if(creator === 'db') {
-   const res = array.filter(c  =>typeof c.id === 'string')
-   dispatch({type: FILTER_POKEMON, payload: [...res]})
-  } 
-  if(creator === 'all') {
-    dispatch({type: FILTER_POKEMON, payload: [...array]})
-  }
-  if(creator === 'null') {
-    dispatch({type: FILTER_POKEMON, payload: []})
-  }
- 
-}
-
-export const orderApi = (condition, array) => (dispatch) => {
-  if(condition === 'az') {
-    const nombre1 = array.sort((a, b) => {
-      const first = a.name;
-      const last = b.name;
-      if(first < last ){
-        return -1;
-      } 
-      if(first > last) {
-        return 1;
-      } else {
-        return 0;
-      }
-      
-    })
-    dispatch({type: FILTER_POKEMON, payload:[...nombre1]})
-  }
-  if(condition === 'za') {
-    const nombre2 = array.sort((a, b) => {
-      const first = a.name;
-      const last = b.name;
-      if(first > last ){
-        return -1;
-      } 
-      if(first < last) {
-        return 1;
-      } else {
-        return 0;
-      }
-    }) 
-    dispatch({type: FILTER_POKEMON, payload:[...nombre2]}) 
-  }
-  if(condition === 'attack+'){
-    const attack = array.sort((a,b) => b.attack - a.attack)
-    dispatch({type: FILTER_POKEMON, payload:[...attack]}) 
-  }
-  if(condition === 'attack-'){
-    const attack = array.sort((a,b) => a.attack - b.attack)
-    dispatch({type: FILTER_POKEMON, payload:[...attack]}) 
-  }
-  if(condition === 'null') {
-    dispatch({type: FILTER_POKEMON, payload: []})
-  }
-  
-}
 
 
 
