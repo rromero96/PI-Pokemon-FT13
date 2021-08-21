@@ -2,7 +2,7 @@ import React from 'react';
 import { GoMarkGithub } from "react-icons/go";
 import { FaLinkedin } from "react-icons/fa";
 import rodri from '../../../images/rodri.png';
-//import './About.css';
+import './About.css';
 
 let develops = [
     {foto: rodri, nombre: 'Rodrigo Romero', linkedin:'https://www.linkedin.com/in/rromero96/', github:'https://github.com/rromero96'},
@@ -12,7 +12,7 @@ export function About() {
     let iconStyles = { color: "black", fontSize: "3rem"};
     return (
         <div className='div_padre_10'>
-            <h1>Desarrollador</h1>
+            <h1>Developer</h1>
             <div className='dev_container'>
                 {
                     develops.map((d, i) => (

@@ -4,11 +4,9 @@ import './Filter.css'
 import {filterPokemon, filterPokemonCreator, orderPokemon} from '../../../Redux/Actions/index.js'
 
 export function Filter() {
-    const dispatch = useDispatch(); // falta use effect con estado para filtrar los pokemone
+    const dispatch = useDispatch(); 
 
-    const pokemonFiltered = useSelector(state => state.pokemonFiltered)
     const pokemonTypes = useSelector(state => state.pokemonTypes)
-    const pokemonList = useSelector(state => state.pokemonList);
     const orderBy = useSelector(state => state.orderBy)
     const orderType = useSelector(state => state.orderType)
     const orderActual = orderBy + ' ' + orderType

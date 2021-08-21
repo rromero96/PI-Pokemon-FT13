@@ -5,6 +5,7 @@ export default function Pokemon(props) {
     const {pokemon} = props;
     
     return (
+      
             <div className="row center">
                 <div key={pokemon.id} className="card">
                   <img className="medium" src={pokemon.image} alt={pokemon.name} /> 

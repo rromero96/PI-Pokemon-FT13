@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom'
 import { getPokemonDetail, clearPokemonDetail } from '../../../Redux/Actions/index.js'
 import React from 'react'
 import './PokemonDetail.css'
+import logo from './../../../images/loadings.gif'
 
 export function PokemonDetail() {
     
@@ -33,7 +34,7 @@ export function PokemonDetail() {
             return (
                 <div className='loading'>
                      <h1>LOADING</h1>
-                    <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
+                    <img src={logo} alt='pokemon img'/>
                 </div>
                 )
             } else { 

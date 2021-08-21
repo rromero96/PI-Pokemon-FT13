@@ -24,7 +24,8 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER
     },
     image:{
-      type: DataTypes.STRING, defaultValue:"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"
+      //type: DataTypes.STRING, defaultValue:"https://www.kindpng.com/picc/m/107-1075263_transparent-pokeball-png-pokemon-ball-2d-png-download.png"
+      type: DataTypes.STRING, defaultValue:"https://i.ibb.co/yBtK4XG/pokeball.png"
     },
     speed:{
       type: DataTypes.INTEGER

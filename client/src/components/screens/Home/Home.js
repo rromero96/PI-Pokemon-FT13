@@ -1,5 +1,5 @@
 import './Home.css'
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 import {getPokemons, setPage} from '../../../Redux/Actions/index.js'
 import Pokemon from '../../component/Pokemon/Pokemon'
@@ -41,15 +41,11 @@ export function Home() {
       }
       
  
-    
-
-   
-    //if (!pokemonList.length /* && pokemonList.length !== 0 */) {
      if(pokemonList.length <1 && pokemonList.length > 0  && pokemonList.length !==1) {
     return (
         <div className='loading'>
             <h1>LOADING</h1>
-            <img src='https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif' alt='pokemon img'/>
+            <img src='client/src/images/Spinner-1s-204px.gif' alt='pokemon img'/>
         </div>
         )
     } 
@@ -64,8 +60,8 @@ export function Home() {
     else { 
         return  (
             <div className="home">     
-            <div className="row center"> 
             <Filter className="filter"/>
+            <div className="row-center-home"> 
             {
             pokemonList.map((pokemon, index)=> (
                 <Link to={`/pokeDetail/${pokemon.id}`} style={{ textDecoration: 'none', color: 'black' }} key={index}>
@@ -74,8 +70,11 @@ export function Home() {
         )) 
         }
         </div>
-            <button className='prev' disabled={page === 1 ? true : false} onClick={prevPage}>{'Previous'}</button>
-            <button className='next' disabled={page === totalPages ? true : false} onClick={nextPage}>{'Next'}</button>
+        <div className="paginate">
+            <button  disabled={page === 1 ? true : false} onClick={prevPage}>{'Previous'}</button>
+            <button  disabled={page === totalPages ? true : false} onClick={nextPage}>{'Next'}</button>
+
+        </div>
         </div>
         )
 
