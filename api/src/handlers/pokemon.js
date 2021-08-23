@@ -142,8 +142,8 @@ async function getIdPokemon (req, res){
 async function addPokemon (req, res, next) {
     const id = uuidv4();
     const pokemon = {...req.body, id};
-    if(!req.body.name) {
-        return res.send({      
+    if(!req.body.name || !req.body.type1) {
+        return res.status(500).send({      
             message: 'tenes que llenar los datos',
         });
     }

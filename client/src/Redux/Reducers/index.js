@@ -52,7 +52,7 @@ const rootReducer = (state = initialState, action) => {
         case CREATE_POKEMON:
             return {
                 ...state,
-                pokemonCreated: state.pokemonCreated.concat(action.payload),
+                pokemonCreated: action.payload,
             }  
         case FILTER_POKEMON:
             return {
