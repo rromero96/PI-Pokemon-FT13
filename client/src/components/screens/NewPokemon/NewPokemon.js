@@ -46,7 +46,6 @@ export function NewPokemon() {
       const handleSubmit = function(e) {
         e.preventDefault();
         newPokemon(input);
-        console.log(input)
         setInput({
           name: '',
           hp: '',
@@ -69,49 +68,49 @@ export function NewPokemon() {
         <form className='tabla' onSubmit={handleSubmit}>
             <div>
               <label>PokeName:</label>
-              <input className={errors.PokeName && 'danger'} type="text" name="name" onChange={handleInputChange} value={input.name} key={input.name} />
+              <input className={errors.PokeName && 'danger'} type="text" name="name" onChange={handleInputChange} value={input.name}  />
               {errors.name && (
                 <p className="danger">{errors.name}</p>
                 )}
                
               <div>
               <label>Hp:</label>
-              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp} key={input.name} placeholder='0 - 255'/>
+              <input className={errors.hp && 'danger'} type="number" name="hp" onChange={handleInputChange} value={input.hp}  placeholder='0 - 255'/>
               {errors.hp && (
               <p className="danger">{errors.hp}</p>
               )}
             
          <div>
               <label>Attack:</label>
-              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} key={input.name}placeholder='0 - 255'/>
+              <input className={errors.attack && 'danger'} type="number" name="attack" onChange={handleInputChange} value={input.attack} placeholder='0 - 255'/>
               {errors.attack && (
               <p className="danger">{errors.attack}</p>
               )}
               
          <div>
               <label>Defense:</label>
-              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} key={input.name}value={input.defense}placeholder='0 - 255' />
+              <input className={errors.defense && 'danger'} type="number" name="defense" onChange={handleInputChange} value={input.defense}placeholder='0 - 255' />
               {errors.defense && (
               <p className="danger">{errors.defense}</p>
               )}
              
          <div>
               <label>Speed:</label>
-              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} key={input.name}placeholder='0 - 255'/>
+              <input className={errors.speed && 'danger'} type="number" name="speed" onChange={handleInputChange} value={input.speed} placeholder='0 - 255'/>
               {errors.speed && (
               <p className="danger">{errors.speed}</p>
               )}
               
          <div>
               <label>Height:</label>
-              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height}key={input.name} placeholder='0 - 255' />
+              <input className={errors.heigth && 'danger'} type="number" name="height" onChange={handleInputChange} value={input.height} placeholder='0 - 255' />
               {errors.height && (
               <p className="danger">{errors.height}</p>
               )}
             
          <div>
               <label>Weight:</label>
-              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} key={input.name}placeholder='0 - 255'/>
+              <input className={errors.weigth && 'danger'} type="number" name="weight" onChange={handleInputChange} value={input.weight} placeholder='0 - 255'/>
               {errors.weight && (
               <p className="danger">{errors.weight}</p>
               )}
