@@ -43,11 +43,13 @@ export const clearPokemonDetail = () => {
 export const newPokemon = (pokemon) => async (dispatch) => {
   try {
     const res = await axios.post("http://localhost:3001/pokemons", pokemon);
-    dispatch({type: CREATE_POKEMON , payload: res.data}, alert("POKEMON CREATED OK"));
+    dispatch({type: CREATE_POKEMON , payload: "success"});
   } catch (err) {
-    alert("ERROR Pokemon not Created");
+    dispatch({ type: CREATE_POKEMON, payload: "error" });
   }
 }; 
+
+export const resetPokemonState = () => (dispatch) => dispatch({type: CREATE_POKEMON, payload: ""})
 
 export const getTypes = () => async (dispatch) => {
   try {

@@ -1,14 +1,15 @@
 import React from 'react'
 import './NewPokemon.css'
-/* import { connect } from 'react-redux'; */
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
-import { newPokemon, getTypes, getPokemons } from '../../../Redux/Actions/index.js'
+import { newPokemon, getTypes, getPokemons, resetPokemonState } from '../../../Redux/Actions/index.js'
+import swal from 'sweetalert'
 
 export function NewPokemon() {
 
     /* const pokemonCreated = useSelector(state => state.pokemonCreated) */
     const pokemonTypes = useSelector(state => state.pokemonTypes)
+    const sweety = useSelector(state => state.pokemonCreated)
 
     const dispatch = useDispatch();
 
@@ -59,8 +60,19 @@ export function NewPokemon() {
         });
         
       }
-      
-    
+
+    function sweet(){        
+      swal({
+          icon: sweety,
+          title: sweety === 'success' ? `The pokemon succesfully created`:
+          `There was an error with the pokemon creation`,
+          text: "  ",
+          button: null,
+          timer: 2000
+      })
+      dispatch(resetPokemonState())
+  }
+
       
       return (
         <div className="forma">
@@ -141,6 +153,7 @@ export function NewPokemon() {
             </div>
             </div>
             <button className="btn1" onClick={()=>dispatch(newPokemon(input))}>CREATE</button>
+            <div>{sweety.length > 1 ? sweet(): null}</div>
           </form>
           </div>
         )
