@@ -12,7 +12,8 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      unique:true
     },
     hp:{
       type: DataTypes.INTEGER

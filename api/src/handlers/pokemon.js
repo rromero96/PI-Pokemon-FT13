@@ -142,11 +142,13 @@ async function getIdPokemon (req, res){
 async function addPokemon (req, res, next) {
     const id = uuidv4();
     const pokemon = {...req.body, id};
-    if(!req.body.name || !req.body.type1) {
+    if(!req.body.name || !req.body.type1 || req.body.height > 255|| req.body.weight > 255 || req.body.hp > 255 || req.body.attack > 255 || req.body.defense > 255 || req.body.speed > 255) {
         return res.status(500).send({      
-            message: 'tenes que llenar los datos',
+            message: 'error',
         });
     }
+  
+
     try {
         const createdPokemon = await Pokemon.create(pokemon);
         const addType = await createdPokemon.addTipo(req.body.type1, {through:'pokemon_tipo'})
