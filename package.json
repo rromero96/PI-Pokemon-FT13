@@ -2,6 +2,26 @@
   "dependencies": {
     "express": "^4.17.1",
     "styled-components": "^5.3.0",
-    "uuid": "^8.3.2"
-  }
+    "uuid": "^8.3.2",
+    "vercel": "^23.1.2"
+  },
+  "name": "pi-pokemon",
+  "description": "<p align='left'>\r     <img src='https://static.wixstatic.com/media/85087f_0d84cbeaeb824fca8f7ff18d7c9eaafd~mv2.png/v1/fill/w_160,h_30,al_c,q_85,usm_0.66_1.00_0.01/Logo_completo_Color_1PNG.webp' </img>\r </p>",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rromero96/PI-Pokemon-FT13.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rromero96/PI-Pokemon-FT13/issues"
+  },
+  "homepage": "https://github.com/rromero96/PI-Pokemon-FT13#readme"
 }
