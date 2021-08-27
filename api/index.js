@@ -32,10 +32,10 @@ const {getAddPokemons} =require('./src/handlers/types.js')
 
 var force =true;
 conn.sync({force}).then(() =>
-server.listen(3001)
+server.listen(process.env.PORT)
 )
 .then(async () => force ? await getAddTypes() : null)
 .then(async () => force ? await getAddPokemons() : null)
 .then(() => force ? console.log('Pokemons y tipos precargados en la base de datos') : null)
-.then(() => console.log('funciona en el 3001'))
+.then(() => console.log(`funciona en el ${process.env.PORT}`))
 .catch(err => console.log(err))
