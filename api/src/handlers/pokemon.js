@@ -8,6 +8,7 @@ const itemsPerPage = 12
 
 async function getApiPokemon (req, res,next) {
     var {name, type, orderBy, orderType, filter, page } = req.query;
+    name = name ? name.toLowerCase() : name
     const validate = ['null', undefined, '', 'undefined', ""]    
     if (validate.includes(name)) name = false
     if (validate.includes(type)) type = false
