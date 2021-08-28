@@ -28,5 +28,5 @@
 - Find a pokemon.
 
 
-## Soon you will see it deployed 🤟
-
+## Deploy down here 👇
+https://pi-pokemon-ft-13-h3xnrwh85-rromero96.vercel.app
