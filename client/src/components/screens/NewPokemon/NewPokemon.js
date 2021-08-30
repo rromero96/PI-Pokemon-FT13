@@ -164,7 +164,7 @@ export function NewPokemon() {
     if (!input.name) {
       errors.name = 'PokeName is required';
     } else if (!/^[A-Za-z]+$/.test(input.name)) {
-      errors.name = 'PokeName must be a text string';
+      errors.name = 'PokeName must be a text string with lowercase letters';
     }
     if (!input.hp) {
       errors.hp = 'Hp is required';
