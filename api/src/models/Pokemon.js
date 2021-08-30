@@ -8,12 +8,15 @@ module.exports = (sequelize) => {
     id:{
       type: DataTypes.STRING,
       primaryKey: true,
-      allowNull: false
+      allowNull: false,
     },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique:true
+      unique:true,
+      validate:{
+        isLowercase: true, 
+      }
     },
     hp:{
       type: DataTypes.INTEGER
