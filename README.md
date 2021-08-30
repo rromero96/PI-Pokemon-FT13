@@ -29,4 +29,4 @@
 
 
 ## Deploy down here 👇
-https://pi-pokemon-ft-13-h3xnrwh85-rromero96.vercel.app
+https://pi-pokemon-ft-13.vercel.app
