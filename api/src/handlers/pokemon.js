@@ -142,8 +142,9 @@ async function getIdPokemon (req, res){
 
 async function addPokemon (req, res, next) {
     const id = uuidv4();
-    var pokemon = {...req.body, id};
-    req.body.name  = req.body.name ? req.body.name.toLowerCase() : req.body.name
+    let name =req.body.name ? req.body.name.toLowerCase() : req.body.name
+    var pokemon = {...req.body, id, name};
+    //req.body.name  = req.body.name ? req.body.name.toLowerCase() : req.body.name
     if(!req.body.name || !req.body.type1 || req.body.height > 255|| req.body.weight > 255 || req.body.hp > 255 || req.body.attack > 255 || req.body.defense > 255 || req.body.speed > 255) {
         return res.status(500).send({      
             message: 'error',
